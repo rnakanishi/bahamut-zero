@@ -33,3 +33,4 @@
 
 # Generated foldes
 build/
+.vscode

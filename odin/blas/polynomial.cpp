@@ -17,6 +17,7 @@ std::vector<double> DifferentialRBF2::computePolynomial(Eigen::Array2d point) {
     case DifferentialRBF2::Polynomial::QUADRATIC:
       return {1, x, y, x * x, y * y, x * y};
   }
+  return std::vector<double>();
 }
 
 std::vector<double> DifferentialRBF2::computeFirstDerivative(
@@ -55,6 +56,7 @@ std::vector<double> DifferentialRBF2::computeFirstDerivative(
           return {0., 0., 1., 0., 2. * point[1], point[0]};
       }
   }
+  return std::vector<double>();
 }
 
 std::vector<double> DifferentialRBF2::computeSecondDerivative(
@@ -88,5 +90,6 @@ std::vector<double> DifferentialRBF2::computeSecondDerivative(
           return {0., 0., 0., 0., 0., 1.};
       }
   }
+  return std::vector<double>();
 }
 }  // namespace Giratina

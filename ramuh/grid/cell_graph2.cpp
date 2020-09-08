@@ -142,7 +142,9 @@ bool CellGraph2::canCoarse(std::vector<size_t> nodesId) {
   for (auto id : nodesId) {
     if (_nodes.getNodeLevel(id) != level)
       return false;
-    if (!nodeFamily.cwiseEqual(_nodes.getNodeAddressCode(id) / indexStep))
+
+    if (nodeFamily.matrix() ==
+        (_nodes.getNodeAddressCode(id) / indexStep).matrix())
       return false;
   }
   return true;
@@ -155,7 +157,8 @@ size_t CellGraph2::coarseNode(size_t nodeId) {
   if (siblings.size() != 4)
     return -1;
 
-  // Sort the sibling 
+  // Sort the sibling
+  return -1;
 }
 
 } // namespace Palkia
