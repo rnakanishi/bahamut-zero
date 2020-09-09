@@ -1,5 +1,5 @@
-#ifndef __PALKIA_CELL_GRAPH2_HPP__
-#define __PALKIA_CELL_GRAPH2_HPP__
+#ifndef __RAMUH_CELL_GRAPH2_HPP__
+#define __RAMUH_CELL_GRAPH2_HPP__
 
 #include <geometry/bounding_box.hpp>
 #include <list>
@@ -9,7 +9,7 @@
 #include <set>
 #include <string>
 
-namespace Palkia {
+namespace Ramuh {
 /***************************************************************************
  ***************************************************************************
  */
@@ -401,5 +401,5 @@ class CellGraph2 {
   Vertices _vertices;
 };
 
-}  // namespace Palkia
+}  // namespace Ramuh
 #endif

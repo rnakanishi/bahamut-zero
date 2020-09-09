@@ -22,9 +22,9 @@ double laplacianFunction(Eigen::Array2d point) {
 }
 
 double laplacianFD(int gridSize) {
-  Palkia::Levelset2 grid(Palkia::BoundingBox2(0, 1), Eigen::Array2i(gridSize));
+  Ramuh::Levelset2 grid(Ramuh::BoundingBox2(0, 1), Eigen::Array2i(gridSize));
   std::map<int, double> analyticValues;
-  grid.initializeLevelset(Palkia::Levelset2::Shape::CIRCLE);
+  grid.initializeLevelset(Ramuh::Levelset2::Shape::CIRCLE);
 
   std::vector<Eigen::Triplet<double>> triplets;
   std::map<int, int> mapCellIds;
@@ -39,7 +39,7 @@ double laplacianFD(int gridSize) {
     return mapCellIds[cellId];
   };
 
-  std::vector<double> &levelset = grid.getLevelsetField();
+  std::vector<double>& levelset = grid.getLevelsetField();
   std::map<int, double> bValues;
   for (int cellId = 0; cellId < grid.getCellCount(); cellId++) {
     // check if cell is negative
@@ -64,18 +64,18 @@ double laplacianFD(int gridSize) {
       bValues[cellId] = analyticFunction(centerPosition);
       triplets.emplace_back(cellId, cellId, 1);
     } else
-      for (auto &neighborId : neighborCellIds) {
+      for (auto& neighborId : neighborCellIds) {
         if (levelset[neighborId] <= 0) {
           size_t neighborMatrixId = mapFunction(neighborId);
           triplets.emplace_back(matrixCellId, matrixCellId, -1. / h2);
           triplets.emplace_back(matrixCellId, neighborMatrixId, 1. / h2);
         } else {
           // Find surface direction
-          Palkia::Levelset2::Direction surfaceDirection;
+          Ramuh::Levelset2::Direction surfaceDirection;
           if (std::abs((int)cellId - (int)neighborId) == 1)
-            surfaceDirection = Palkia::Levelset2::Direction::HORIZONTAL;
+            surfaceDirection = Ramuh::Levelset2::Direction::HORIZONTAL;
           else
-            surfaceDirection = Palkia::Levelset2::Direction::VERTICAL;
+            surfaceDirection = Ramuh::Levelset2::Direction::VERTICAL;
 
           int surfaceOffset = 0;
           while (mapCellIds.find(neighborId + surfaceOffset) !=
@@ -127,7 +127,6 @@ double laplacianFD(int gridSize) {
 }
 
 TEST_CASE("Traditional finite differecens", "[finite_difference, levelset]") {
-
   std::vector<int> gridSizes = {4, 8, 16, 32, 64, 128, 256, 512};
   std::vector<double> errors;
 

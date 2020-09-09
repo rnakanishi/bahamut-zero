@@ -1,6 +1,6 @@
 #include <geometry/bounding_box.hpp>
 
-namespace Palkia {
+namespace Ramuh {
 
 BoundingBox3::BoundingBox3() : BoundingBox3(-1., 1.) {}
 
@@ -121,4 +121,4 @@ std::ostream& operator<<(std::ostream& output, const BoundingBox3& box) {
   return output;
 }
 
-}  // namespace Palkia
+}  // namespace Ramuh

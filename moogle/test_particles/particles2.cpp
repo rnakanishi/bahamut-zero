@@ -3,10 +3,10 @@
 #include <particle/particle_system.hpp>
 
 TEST_CASE("Particle position creation", "[particle, 2d]") {
-  Palkia::ParticleSystem2 particles;
+  Ramuh::ParticleSystem2 particles;
   int nParticles = 100;
 
-  particles.insertParticles(nParticles, Palkia::BoundingBox2(0, 1));
+  particles.insertParticles(nParticles, Ramuh::BoundingBox2(0, 1));
 
   for (size_t i = 0; i < nParticles; i++) {
     auto position = particles.getParticlePosition(i);
@@ -18,7 +18,7 @@ TEST_CASE("Particle position creation", "[particle, 2d]") {
 }
 
 TEST_CASE("Particle removal", "[particle]") {
-  Palkia::ParticleSystem2 particles;
+  Ramuh::ParticleSystem2 particles;
   particles.insertParticles(100);
 
   CHECK(particles.getActiveParticleCount() == 100);

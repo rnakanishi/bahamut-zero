@@ -12,8 +12,8 @@ double function(Eigen::Array2d point) {
 }
 
 TEST_CASE("Poisson for regular grid", "[poisson, rbf]") {
-  Giratina::DifferentialRBF2 rbf;
-  Palkia::CellCenteredGrid2 domain;
+  Odin::DifferentialRBF2 rbf;
+  Ramuh::CellCenteredGrid2 domain;
 
   // Populate domain with levelset
 

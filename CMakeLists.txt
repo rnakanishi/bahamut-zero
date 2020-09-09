@@ -86,3 +86,4 @@ add_subdirectory(bahamut) # General utility library
 add_subdirectory(odin) # Mathematical/Blas library
 add_subdirectory(moogle) # Tests library
 add_subdirectory(garuda) # Graaphical interface library
+add_subdirectory(alexander) # Deploying final appllications

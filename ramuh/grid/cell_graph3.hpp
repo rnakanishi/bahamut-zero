@@ -1,10 +1,10 @@
-#ifndef __PALKIA_CELL_GRAPH3_HPP__
-#define __PALKIA_CELL_GRAPH3_HPP__
+#ifndef __RAMUH_CELL_GRAPH3_HPP__
+#define __RAMUH_CELL_GRAPH3_HPP__
 
-namespace Palkia {
+namespace Ramuh {
 
 class CellGraph3 {};
 
-}  // namespace Palkia
+}  // namespace Ramuh
 
 #endif

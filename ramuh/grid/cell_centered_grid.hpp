@@ -1,5 +1,5 @@
-#ifndef __PALKIA_CELL_CENTERED_GRID_HPP__
-#define __PALKIA_CELL_CENTERED_GRID_HPP__
+#ifndef __RAMUH_CELL_CENTERED_GRID_HPP__
+#define __RAMUH_CELL_CENTERED_GRID_HPP__
 
 #include <Eigen/Dense>
 #include <geometry/bounding_box.hpp>
@@ -8,7 +8,7 @@
 #include <utils/exception.hpp>
 #include <vector>
 
-namespace Palkia {
+namespace Ramuh {
 
 class CellCenteredGrid2 {
  public:
@@ -231,6 +231,6 @@ class CellCenteredGrid2 {
   std::map<std::string, size_t> _cellScalarLabels, _cellVectorLabels;
 };
 
-}  // namespace Palkia
+}  // namespace Ramuh
 
 #endif

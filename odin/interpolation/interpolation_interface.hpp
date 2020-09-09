@@ -1,10 +1,10 @@
-#ifndef __GIRATINA_INTERPOLATION_INTERPOLATION_INTERFACE_HPP__
-#define __GIRATINA_INTERPOLATION_INTERPOLATION_INTERFACE_HPP__
+#ifndef __ODIN_INTERPOLATION_INTERPOLATION_INTERFACE_HPP__
+#define __ODIN_INTERPOLATION_INTERPOLATION_INTERFACE_HPP__
 
 #include <Eigen/Dense>
 #include <vector>
 
-namespace Giratina {
+namespace Odin {
 class InterpolationInterface2 {
  public:
   /**
@@ -56,6 +56,6 @@ class InterpolationInterface3 {
  protected:
 };
 
-}  // namespace Giratina
+}  // namespace Odin
 
 #endif

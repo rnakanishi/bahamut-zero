@@ -1,9 +1,9 @@
-#ifndef __PALKIA_BOUNDING_BOX_HPP__
-#define __PALKIA_BOUNDING_BOX_HPP__
+#ifndef __RAMUH_BOUNDING_BOX_HPP__
+#define __RAMUH_BOUNDING_BOX_HPP__
 
 #include <Eigen/Dense>
 
-namespace Palkia {
+namespace Ramuh {
 
 class BoundingBox2 {
  public:
@@ -355,6 +355,6 @@ class BoundingBox3 {
  private:
   Eigen::Array3d _min, _max;
 };
-}  // namespace Palkia
+}  // namespace Ramuh
 
 #endif

@@ -1,7 +1,7 @@
 #include <interpolation/rbf_interpolation.hpp>
 #include <utils/exception.hpp>
 
-namespace Giratina {
+namespace Odin {
 RBFInterpolation2::RBFInterpolation2() {
   _kernel = Kernel::QUINTIC;
   _polynomialDegree = 1;
@@ -27,7 +27,7 @@ void RBFInterpolation2::setKernel(RBFInterpolation2::Kernel newKernel) {
 void RBFInterpolation2::setPolynomialDegreee(int newDegree) {
   if (newDegree < 0 || newDegree > 2) {
     _polynomialDegree = 1;
-    Arceus::UnexpectedParameterException exception(
+    Bahamut::UnexpectedParameterException exception(
         "Polynomial degree not supported",
         "RBFInterpolation2::setPolynomialDegree");
     exception.setErrorNumber(301);
@@ -39,4 +39,4 @@ void RBFInterpolation2::setPolynomialDegreee(int newDegree) {
 
 void RBFInterpolation2::evaluateKernel() {}
 
-}  // namespace Giratina
+}  // namespace Odin

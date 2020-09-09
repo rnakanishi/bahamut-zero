@@ -10,7 +10,7 @@
 #include <utils/exception.hpp>
 
 TEST_CASE("Laplacian weights RBF-FD", "[rbf, finite_difference]") {
-  Giratina::DifferentialRBF2 rbf;
+  Odin::DifferentialRBF2 rbf;
 
   Eigen::Array2d target;
   std::vector<Eigen::Array2d> points;
@@ -19,7 +19,7 @@ TEST_CASE("Laplacian weights RBF-FD", "[rbf, finite_difference]") {
   std::function<std::vector<double>(std::vector<Eigen::Array2d>)> function =
       [](std::vector<Eigen::Array2d> points) {
         std::vector<double> values;
-        for (auto &&point : points) {
+        for (auto&& point : points) {
           values.emplace_back(point.x() + point.y());
         }
         return values;
@@ -38,7 +38,7 @@ TEST_CASE("Laplacian weights RBF-FD", "[rbf, finite_difference]") {
     std::vector<double> weights;
     try {
       weights = rbf.computeLaplacianWeightsAt(target);
-    } catch (Arceus::ArceusException exception) {
+    } catch (Bahamut::BahamutException exception) {
       std::cerr << exception.what() << '\n';
     }
 
@@ -69,7 +69,7 @@ TEST_CASE("Laplacian weights RBF-FD", "[rbf, finite_difference]") {
     std::vector<double> weights;
     try {
       weights = rbf.computeLaplacianWeightsAt(target);
-    } catch (Arceus::ArceusException exception) {
+    } catch (Bahamut::BahamutException exception) {
       std::cerr << exception.what() << '\n';
     }
 
@@ -100,7 +100,7 @@ TEST_CASE("Laplacian weights RBF-FD", "[rbf, finite_difference]") {
     std::vector<double> weights;
     try {
       weights = rbf.computeLaplacianWeightsAt(target);
-    } catch (Arceus::ArceusException exception) {
+    } catch (Bahamut::BahamutException exception) {
       std::cerr << exception.what() << '\n';
       exit(exception.getErrorNumber());
     }
@@ -123,7 +123,7 @@ TEST_CASE("Laplacian weights RBF-FD", "[rbf, finite_difference]") {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 //  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 TEST_CASE("Laplacian RBFFD interpolated value", "[rbf, finite_difference]") {
-  Giratina::DifferentialRBF2 rbf;
+  Odin::DifferentialRBF2 rbf;
   Eigen::Array2d target;
   std::vector<Eigen::Array2d> points;
   std::vector<double> values;
@@ -139,7 +139,7 @@ TEST_CASE("Laplacian RBFFD interpolated value", "[rbf, finite_difference]") {
   std::function<std::vector<double>(std::vector<Eigen::Array2d>)>
       functionVector = [myfunc](std::vector<Eigen::Array2d> points) {
         std::vector<double> values;
-        for (auto &&point : points) {
+        for (auto&& point : points) {
           values.emplace_back(myfunc(point));
         }
         return values;
@@ -158,7 +158,7 @@ TEST_CASE("Laplacian RBFFD interpolated value", "[rbf, finite_difference]") {
     rbf.addSamplePoint(points, functionVector(points));
     try {
       weights = rbf.computeLaplacianWeightsAt(target);
-    } catch (Arceus::ArceusException exception) {
+    } catch (Bahamut::BahamutException exception) {
       std::cerr << exception.what() << '\n';
     }
 
@@ -190,7 +190,7 @@ TEST_CASE("Laplacian RBFFD interpolated value", "[rbf, finite_difference]") {
     rbf.addSamplePoint(points, values);
     try {
       weights = rbf.computeLaplacianWeightsAt(target);
-    } catch (Arceus::ArceusException exception) {
+    } catch (Bahamut::BahamutException exception) {
       std::cerr << exception.what() << '\n';
       exit(exception.getErrorNumber());
     }
@@ -224,7 +224,7 @@ TEST_CASE("Laplacian RBFFD interpolated value", "[rbf, finite_difference]") {
     rbf.addSamplePoint(points, values);
     try {
       weights = rbf.computeLaplacianWeightsAt(target);
-    } catch (Arceus::ArceusException exception) {
+    } catch (Bahamut::BahamutException exception) {
       std::cerr << exception.what() << '\n';
       exit(exception.getErrorNumber());
     }
@@ -257,7 +257,7 @@ TEST_CASE("Laplacian RBFFD interpolated value", "[rbf, finite_difference]") {
     rbf.addSamplePoint(points, values);
     try {
       weights = rbf.computeLaplacianWeightsAt(target);
-    } catch (Arceus::ArceusException exception) {
+    } catch (Bahamut::BahamutException exception) {
       std::cerr << exception.what() << '\n';
       exit(exception.getErrorNumber());
     }

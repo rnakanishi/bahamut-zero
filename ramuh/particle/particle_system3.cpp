@@ -1,10 +1,11 @@
 #include <omp.h>
+
 #include <cstdlib>
 #include <iostream>
 #include <particle/particle_system.hpp>
 #include <utils/exception.hpp>
 
-namespace Palkia {
+namespace Ramuh {
 ParticleSystem3::ParticleSystem3() : ParticleSystem3(BoundingBox3()) {}
 
 ParticleSystem3::ParticleSystem3(BoundingBox3 domain)
@@ -90,7 +91,7 @@ void ParticleSystem3::removeParticle(std::vector<size_t> particlesId) {
 
 void ParticleSystem3::removeParticle(size_t particleId) {
   if (!_activeParticles[particleId]) {
-    throw(Arceus::UnexpectedParameterException(
+    throw(Bahamut::UnexpectedParameterException(
         308, "ParticleSystem3::removeParticle"));
   }
 #pragma omp critical
@@ -101,12 +102,12 @@ void ParticleSystem3::removeParticle(size_t particleId) {
 
 Eigen::Array3d ParticleSystem3::getParticlePosition(size_t particleId) {
   if (particleId < 0 || particleId >= _particlePosition.size())
-    throw(Arceus::UnexpectedParameterException(
+    throw(Bahamut::UnexpectedParameterException(
         307, "ParticleSystem3::getParticlePosition"));
   if (!_activeParticles[particleId])
-    throw(Arceus::UnexpectedParameterException(
+    throw(Bahamut::UnexpectedParameterException(
         308, "ParticleSystem3::getParticlePosition"));
   return _particlePosition[particleId];
 }
 
-}  // namespace Palkia
+}  // namespace Ramuh

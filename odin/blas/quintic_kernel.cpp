@@ -1,6 +1,6 @@
 #include <blas/rbf_finite_difference.hpp>
 
-namespace Giratina {
+namespace Odin {
 
 double DifferentialRBF2::computeKernel(double distance) {
   double d2 = distance * distance;
@@ -16,4 +16,4 @@ double DifferentialRBF2::computeKernelSecondDerivative(double distance) {
   return 20 * distance * distance * distance;
 }
 
-}  // namespace Giratina
+}  // namespace Odin

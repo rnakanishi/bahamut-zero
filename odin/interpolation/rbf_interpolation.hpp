@@ -1,9 +1,9 @@
-#ifndef __GIRATINA_RBF_INTERPOLATION_HPP__
-#define __GIRATINA_RBF_INTERPOLATION_HPP__
+#ifndef __ODIN_RBF_INTERPOLATION_HPP__
+#define __ODIN_RBF_INTERPOLATION_HPP__
 
 #include <interpolation/interpolation_interface.hpp>
 
-namespace Giratina {
+namespace Odin {
 
 /**
  * @brief RBF interpolation class for 2D defined points
@@ -83,6 +83,6 @@ class RBFInterpolation3 : public InterpolationInterface3 {
  private:
 };
 
-}  // namespace Giratina
+}  // namespace Odin
 
 #endif

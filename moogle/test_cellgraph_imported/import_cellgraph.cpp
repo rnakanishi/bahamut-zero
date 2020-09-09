@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #define CATCH_CONFIG_CONSOLE_WIDTH 300
-#include "cellgraph_temp.hpp"
+#include <omp.h>
+
 #include <Eigen/Core>
 #include <Eigen/Sparse>
 #include <blas/rbf_finite_difference.hpp>
@@ -10,10 +11,11 @@
 #include <geometry/levelset.hpp>
 #include <iostream>
 #include <map>
-#include <omp.h>
 #include <random>
 #include <utils/exception.hpp>
 #include <vector>
+
+#include "cellgraph_temp.hpp"
 
 double analyticFunction(Eigen::Array2d point) {
   double x = point.x();
@@ -46,11 +48,11 @@ double laplacianRBF(std::string filename) {
     return mapCellIds[cellId];
   };
 
-  std::vector<double> &levelset = grid.getLevelsetField();
+  std::vector<double>& levelset = grid.getLevelsetField();
   std::map<int, double> bValues;
 #pragma omp parallel
   {
-    Giratina::DifferentialRBF2 rbf;
+    Odin::DifferentialRBF2 rbf;
     std::map<int, double> threadAnalyticValues;
     std::map<int, double> threadBValues;
     std::vector<Eigen::Triplet<double>> threadTriplet;
@@ -80,7 +82,7 @@ double laplacianRBF(std::string filename) {
       std::vector<int> neighborCellIds = grid.getNeighborCellsId(cellId);
       int icount = 0;
       std::vector<int> dirichletIndices;
-      for (auto &neighborId : neighborCellIds) {
+      for (auto& neighborId : neighborCellIds) {
         if (levelset[neighborId] <= 0) {
           size_t neighborMatrixId = mapFunction(neighborId);
           neighborsIdsVector.push_back(neighborMatrixId);
@@ -149,7 +151,6 @@ double laplacianRBF(std::string filename) {
 }
 
 TEST_CASE("Import Cell Graph", "[cellgraph]") {
-
   // Read cellgraph from furoo library
   std::string filename = "resources/cellgraph.io";
   CellGraphTemp cellgraph(filename);
@@ -159,7 +160,6 @@ TEST_CASE("Import Cell Graph", "[cellgraph]") {
 }
 
 TEST_CASE("Laplacian Cell Graph", "[cellgraph, laplacian]") {
-
   // Read cellgraph from furoo library
   for (int i = 0; i < 9; i++) {
     char filename[256];

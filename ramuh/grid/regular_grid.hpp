@@ -1,13 +1,13 @@
-#ifndef __PALKIA_REGULAR_GRID_HPP__
-#define __PALKIA_REGULAR_GRID_HPP__
+#ifndef __RAMUH_REGULAR_GRID_HPP__
+#define __RAMUH_REGULAR_GRID_HPP__
 
-namespace Palkia {
+namespace Ramuh {
 
 class RegularGrid2 {
-public:
-protected:
+ public:
+ protected:
 };
 
-} // namespace Palkia
+}  // namespace Ramuh
 
 #endif

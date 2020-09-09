@@ -1,7 +1,7 @@
 #include <grid/cell_graph2.hpp>
 #include <utils/exception.hpp>
 
-namespace Palkia {
+namespace Ramuh {
 
 CellGraph2::Nodes::Nodes(BoundingBox2 domain) {
   _cellsRegion.push_back(domain);
@@ -125,7 +125,7 @@ void CellGraph2::Nodes::removeEdge(size_t nodeId, size_t edgeId) {
 std::vector<size_t> CellGraph2::Nodes::refineNode(size_t nodeId) {
   if (nodeId >= getCellsCount() || nodeId <= 0) {
     // Node 0 should never be refined
-    Arceus::UnexpectedParameterException exception(
+    Bahamut::UnexpectedParameterException exception(
         306, "CellGraph2::Nodes::refineNode");
     if (nodeId <= 0)
       exception.appendMessage("The 0 index node should never be refined.");
@@ -134,7 +134,7 @@ std::vector<size_t> CellGraph2::Nodes::refineNode(size_t nodeId) {
     throw exception;
   }
   if (!_validCells[nodeId]) {
-    Arceus::UnexpectedParameterException exception(
+    Bahamut::UnexpectedParameterException exception(
         306, "CellGraph2::Nodes::refineNode");
     exception.appendMessage("NodeId is not valid.");
     throw exception;
@@ -156,4 +156,4 @@ std::vector<size_t> CellGraph2::Nodes::refineNode(size_t nodeId) {
 
 std::vector<size_t> CellGraph2::Nodes::findNodeSiblings(size_t nodeId) {}
 
-}  // namespace Palkia
+}  // namespace Ramuh

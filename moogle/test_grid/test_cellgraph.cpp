@@ -3,7 +3,7 @@
 #include <grid/cell_graph.hpp>
 
 TEST_CASE("Cellgraph instancing", "[cellgraph]") {
-  Palkia::CellGraph2 cellgraph;
+  Ramuh::CellGraph2 cellgraph;
 
   auto newNodes = cellgraph.refineNode(1);
   SECTION("First refinement") {
@@ -34,7 +34,7 @@ TEST_CASE("Cellgraph instancing", "[cellgraph]") {
 }
 
 TEST_CASE("Neighbor checking", "[cellgraph]") {
-  Palkia::CellGraph2 cellgraph;
+  Ramuh::CellGraph2 cellgraph;
 
   auto newNodes = cellgraph.refineNode(1);
   SECTION("First refinement") {

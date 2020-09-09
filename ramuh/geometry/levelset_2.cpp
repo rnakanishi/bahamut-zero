@@ -1,8 +1,9 @@
 #include <omp.h>
+
 #include <geometry/levelset.hpp>
 #include <utils/exception.hpp>
 
-namespace Palkia {
+namespace Ramuh {
 Levelset2::Levelset2() : Levelset2(BoundingBox2(), Eigen::Array2i(32, 32)) {}
 
 Levelset2::Levelset2(BoundingBox2 domain, Eigen::Array2i gridSize)
@@ -32,12 +33,12 @@ void Levelset2::initializeLevelset(Levelset2::Shape shape) {
       });
       break;
     case Levelset2::Shape::SQUARE:
-      throw(Arceus::UnexpectedParameterException(
+      throw(Bahamut::UnexpectedParameterException(
           305, "Levelset2::initializeLevelset(Levelset2::Shape)"));
       initializeLevelset([](Eigen::Array2d position) -> double { return 0.0; });
       break;
     default:
-      throw(Arceus::UnexpectedParameterException(
+      throw(Bahamut::UnexpectedParameterException(
           304, "Levelset2::initializeLevelset(Levelset2::Shape)"));
       break;
   }
@@ -45,8 +46,8 @@ void Levelset2::initializeLevelset(Levelset2::Shape shape) {
 
 bool Levelset2::isSurface(size_t cellId) {
   if (cellId > getCellCount() || cellId < 0)
-    throw(Arceus::UnexpectedParameterException(306,
-                                               "Levelset2::isSurface(cellId)"));
+    throw(Bahamut::UnexpectedParameterException(
+        306, "Levelset2::isSurface(cellId)"));
 
   std::vector<double> levelsetField = getCellScalarField(_levelsetFieldId);
   // Return false straight away if the cell is positive
@@ -77,7 +78,7 @@ std::vector<Levelset2::Direction> Levelset2::findSurfaceDirection(
   size_t i = ij[0], j = ij[1];
 
   if (levelsetField[cellId] > 0.) {
-    throw(Arceus::ConditionsNotMatchException(
+    throw(Bahamut::ConditionsNotMatchException(
         403, "Levelset2::findSurfaceDirection"));
   }
 
@@ -99,8 +100,8 @@ Eigen::Array2d Levelset2::findSurfacePosition(size_t cellId) {
     std::vector<Levelset2::Direction> directions;
     // TODO: Add treatment for cases where more than one direction is found
     findSurfacePosition(cellId, directions[0]);
-  } catch (const Arceus::ArceusException exception) {
-    Arceus::ArceusException newException;
+  } catch (const Bahamut::BahamutException exception) {
+    Bahamut::BahamutException newException;
     newException.appendMessage(exception.what());
     newException.setCallingLocation("Levelset2::findSurfaceDirection");
     throw(newException);
@@ -110,7 +111,7 @@ Eigen::Array2d Levelset2::findSurfacePosition(size_t cellId) {
 Eigen::Array2d Levelset2::findSurfacePosition(size_t cellId,
                                               Direction direction) {
   if (!isSurface(cellId)) {
-    Arceus::ConditionsNotMatchException exception(
+    Bahamut::ConditionsNotMatchException exception(
         403, "Leveset2::findSurfacePosition");
     exception.setLethality(false);
     throw(exception);
@@ -135,7 +136,7 @@ Eigen::Array2d Levelset2::findSurfacePosition(size_t cellId,
         neighborId = getId(ij[0] + 1, ij[1]);
         neighborCellPosition = getCellPosition(getId(ij[0] + 1, ij[1]));
       } else {
-        Arceus::ConditionsNotMatchException exception(
+        Bahamut::ConditionsNotMatchException exception(
             404, "Leveset2::findSurfacePosition");
         exception.setLethality(false);
         throw(exception);
@@ -157,7 +158,7 @@ Eigen::Array2d Levelset2::findSurfacePosition(size_t cellId,
         neighborId = getId(ij[0], ij[1] + 1);
         neighborCellPosition = getCellPosition(getId(ij[0], ij[1] + 1));
       } else {
-        Arceus::ConditionsNotMatchException exception(
+        Bahamut::ConditionsNotMatchException exception(
             405, "Leveset2::findSurfacePosition");
         exception.setLethality(false);
         throw(exception);
@@ -174,4 +175,4 @@ std::vector<double>& Levelset2::getLevelsetField() {
   return getCellScalarField(_levelsetFieldId);
 }
 
-}  // namespace Palkia
+}  // namespace Ramuh

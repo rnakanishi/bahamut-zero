@@ -34,3 +34,5 @@
 # Generated foldes
 build/
 .vscode
+
+imgui.ini

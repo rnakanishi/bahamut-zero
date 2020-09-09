@@ -1,12 +1,12 @@
-#ifndef __PALKIA_LEVELSET_HPP__
-#define __PALKIA_LEVELSET_HPP__
+#ifndef __RAMUH_LEVELSET_HPP__
+#define __RAMUH_LEVELSET_HPP__
 
 #include <Eigen/Dense>
 #include <functional>
 #include <geometry/bounding_box.hpp>
 #include <grid/cell_centered_grid.hpp>
 
-namespace Palkia {
+namespace Ramuh {
 class Levelset2 : public CellCenteredGrid2 {
  public:
   enum class Shape { CIRCLE, SQUARE };
@@ -73,6 +73,6 @@ class Levelset2 : public CellCenteredGrid2 {
  protected:
   int _levelsetFieldId;
 };
-}  // namespace Palkia
+}  // namespace Ramuh
 
 #endif

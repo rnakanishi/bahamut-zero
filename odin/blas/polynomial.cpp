@@ -1,6 +1,6 @@
 #include <blas/rbf_finite_difference.hpp>
 
-namespace Giratina {
+namespace Odin {
 
 void DifferentialRBF2::setPolynomialBase(Polynomial newPolynomial) {
   _polynomialType = newPolynomial;
@@ -28,7 +28,7 @@ std::vector<double> DifferentialRBF2::computeFirstDerivative(
       derivative == DifferentialRBF2::Derivative::DYX ||
       derivative == DifferentialRBF2::Derivative::DYY) {
     // First derivative parameters are not supported
-    Arceus::UnexpectedParameterException exception(
+    Bahamut::UnexpectedParameterException exception(
         303, "DifferentialRBF2::computeFirstDerivative");
     exception.setLethality(false);
     throw(exception);
@@ -65,7 +65,7 @@ std::vector<double> DifferentialRBF2::computeSecondDerivative(
   if (derivative == DifferentialRBF2::Derivative::DX ||
       derivative == DifferentialRBF2::Derivative::DY) {
     // First derivative parameters are not supported
-    Arceus::UnexpectedParameterException exception(
+    Bahamut::UnexpectedParameterException exception(
         303, "DifferentialRBF2::computeSecondDerivative");
     exception.setLethality(false);
     throw(exception);
@@ -92,4 +92,4 @@ std::vector<double> DifferentialRBF2::computeSecondDerivative(
   }
   return std::vector<double>();
 }
-}  // namespace Giratina
+}  // namespace Odin

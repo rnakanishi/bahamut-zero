@@ -1,11 +1,11 @@
-#ifndef __GIRATINA_RBF_FINITE_DIFFERENCE_HPP__
-#define __GIRATINA_RBF_FINITE_DIFFERENCE_HPP__
+#ifndef __ODIN_RBF_FINITE_DIFFERENCE_HPP__
+#define __ODIN_RBF_FINITE_DIFFERENCE_HPP__
 
 #include <Eigen/Dense>
 #include <utils/exception.hpp>
 #include <vector>
 
-namespace Giratina {
+namespace Odin {
 class DifferentialRBF2 {
  public:
   /**
@@ -150,6 +150,6 @@ class DifferentialRBF2 {
   std::vector<double> _sampleScalarValues;
   std::vector<Eigen::Vector2d> _sampleVectorValues;
 };
-}  // namespace Giratina
+}  // namespace Odin
 
 #endif

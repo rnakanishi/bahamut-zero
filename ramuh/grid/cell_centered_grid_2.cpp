@@ -1,7 +1,7 @@
 #include <grid/cell_centered_grid.hpp>
 #include <utils/exception.hpp>
 
-namespace Palkia {
+namespace Ramuh {
 
 CellCenteredGrid2::CellCenteredGrid2()
     : CellCenteredGrid2(BoundingBox2(), Eigen::Array2i(32, 32)) {}
@@ -39,8 +39,8 @@ std::vector<size_t> CellCenteredGrid2::getIj(size_t id) {
 
 std::vector<size_t> CellCenteredGrid2::getNeighborCellsId(size_t cellId) {
   if (cellId > getCellCount() || cellId < 0)
-    throw(Arceus::UnexpectedParameterException(306,
-                                               "Levelset2::isSurface(cellId)"));
+    throw(Bahamut::UnexpectedParameterException(
+        306, "Levelset2::isSurface(cellId)"));
   std::vector<size_t> neighborsId;
   auto ij = getIj(cellId);
   auto resolution = getResolution();
@@ -197,7 +197,7 @@ double CellCenteredGrid2::interpolateCellScalarField(int dataId,
   values[3] = data[getId(xindex, yindex)];
 
   // return Ramuh::Interpolator::bilinear(target, points, values);
-  throw(Arceus::ArceusException(
+  throw(Bahamut::BahamutException(
       102, "CellCenteredGrid2::interpolateCellScalarField"));
   return 0.0;
 }
@@ -254,9 +254,9 @@ Eigen::Vector2d CellCenteredGrid2::interpolateCellVectorField(
     // interpData[d] = Ramuh::Interpolator::bilinear(target, points, values);
   }
 
-  throw(Arceus::ArceusException(
+  throw(Bahamut::BahamutException(
       102, "CellCenteredGrid2::interpolateCellVectorField"));
   return interpData;
 }
 
-}  // namespace Palkia
+}  // namespace Ramuh

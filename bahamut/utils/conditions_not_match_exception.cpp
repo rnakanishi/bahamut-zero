@@ -1,6 +1,6 @@
 #include <utils/exception.hpp>
 
-namespace Arceus {
+namespace Bahamut {
 ConditionsNotMatchException::ConditionsNotMatchException()
     : ConditionsNotMatchException("Conditions not match", "") {}
 
@@ -50,9 +50,9 @@ void ConditionsNotMatchException::setErrorNumber(int errorNumber,
     default:
       std::string myLocation("ConditionsNotMatchExcetption::constructor\n");
       myLocation.append(location);
-      throw(ArceusException(101, myLocation));
+      throw(BahamutException(101, myLocation));
       break;
   }
 }
 
-}  // namespace Arceus
+}  // namespace Bahamut

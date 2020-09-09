@@ -1,6 +1,6 @@
 #include <grid/cell_graph2.hpp>
 
-namespace Palkia {
+namespace Ramuh {
 
 CellGraph2::Edges::Edges() {}
 
@@ -24,10 +24,10 @@ size_t CellGraph2::Edges::createEdge(size_t nodeA, size_t nodeB) {
     _edgeNodes[newId].emplace_back(nodeA);
     _edgeNodes[newId].emplace_back(nodeB);
 
-    for (auto &&field : _scalarFields) {
+    for (auto&& field : _scalarFields) {
       field.emplace_back(0.0);
     }
-    for (auto &&field : _vectorFields) {
+    for (auto&& field : _vectorFields) {
       field.emplace_back(0.0, 0.0);
     }
   }
@@ -40,5 +40,7 @@ void CellGraph2::Edges::destroyEdge(size_t edgeId) {
   _availableIds.push(edgeId);
 }
 
-bool CellGraph2::Edges::isValid(size_t edgeId) { return _validEdges[edgeId]; }
-} // namespace Palkia
+bool CellGraph2::Edges::isValid(size_t edgeId) {
+  return _validEdges[edgeId];
+}
+}  // namespace Ramuh

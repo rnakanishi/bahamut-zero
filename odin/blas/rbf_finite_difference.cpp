@@ -1,7 +1,7 @@
 #include <blas/rbf_finite_difference.hpp>
 #include <iostream>
 
-namespace Giratina {
+namespace Odin {
 DifferentialRBF2::DifferentialRBF2() {
   _isScalarField = _isVectorField = false;
   _kernelType = DifferentialRBF2::Kernel::QUINTIC;
@@ -20,7 +20,7 @@ void DifferentialRBF2::addSamplePoint(std::vector<Eigen::Array2d> samplePoints,
     for (int pId = 0; pId < samplePoints.size(); pId++) {
       addSamplePoint(samplePoints[pId], scalarValues[pId]);
     }
-  } catch (Arceus::ArceusException& exception) {
+  } catch (Bahamut::BahamutException& exception) {
     exception.setCallingLocation(
         "DifferentialRBF2::addSamplePoint(std::vector<Eigen::Array2d>, "
         "std::vector<double>)");
@@ -33,7 +33,7 @@ void DifferentialRBF2::addSamplePoint(Eigen::Array2d samplePoint,
   if (!_isScalarField && !_isVectorField)
     _isScalarField = true;
   if (_isVectorField) {
-    Arceus::ConditionsNotMatchException exception(
+    Bahamut::ConditionsNotMatchException exception(
         "Different type value already set!",
         "DifferentialRBF2::addSamplePoint(Eigen::Array2d, double)");
     exception.setErrorNumber(401);
@@ -51,7 +51,7 @@ void DifferentialRBF2::addSamplePoint(
     for (int pId = 0; pId < samplePoints.size(); pId++) {
       addSamplePoint(samplePoints[pId], scalarValues[pId]);
     }
-  } catch (Arceus::ArceusException& exception) {
+  } catch (Bahamut::BahamutException& exception) {
     exception.setCallingLocation(
         "DifferentialRBF2::addSamplePoint(std::vector<Eigen::Array2d>, "
         "std::vector<Eigen::Vector2d>)");
@@ -64,7 +64,7 @@ void DifferentialRBF2::addSamplePoint(Eigen::Array2d samplePoint,
   if (!_isScalarField && !_isVectorField)
     _isVectorField = true;
   if (_isScalarField) {
-    Arceus::ConditionsNotMatchException exception(
+    Bahamut::ConditionsNotMatchException exception(
         401,
         "DifferentialRBF2::addSamplePoint(Eigen::Array2d, Eigen::Vector2d)");
     exception.setLethality(true);
@@ -99,7 +99,7 @@ size_t DifferentialRBF2::getPolynomialBaseSize() {
 Eigen::Array2d DifferentialRBF2::computeGradientAt(Eigen::Array2d target) {
   size_t nPoints = _samplePoints.size();
   if (nPoints < 3) {
-    throw(Arceus::ConditionsNotMatchException(
+    throw(Bahamut::ConditionsNotMatchException(
         402, "DifferentialRBF2::computeGradientAt"));
   }
   // Normalization to put the target at the origin. This generates better
@@ -123,7 +123,7 @@ std::vector<double> DifferentialRBF2::computeLaplacianWeightsAt(
     Eigen::Array2d target) {
   int nPoints = _samplePoints.size();
   if (nPoints < 3) {
-    throw(Arceus::ConditionsNotMatchException(
+    throw(Bahamut::ConditionsNotMatchException(
         402, "DifferentialRBF2::computeLaplacianWeights"));
   }
   // Target is translated in origin position
@@ -173,7 +173,7 @@ std::vector<double> DifferentialRBF2::computeLaplacianWeightsAt(
   // imprecise results
   Eigen::VectorXd weights = M.fullPivLu().solve(b);
   if (weights.hasNaN()) {
-    throw(Arceus::BadResultException(
+    throw(Bahamut::BadResultException(
         501, "DifferentialRBF2::computeLaplacianWeights"));
   }
   std::vector<double> finalWeights(weights.data(),
@@ -181,4 +181,4 @@ std::vector<double> DifferentialRBF2::computeLaplacianWeightsAt(
   return finalWeights;
 }
 
-}  // namespace Giratina
+}  // namespace Odin

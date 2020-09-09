@@ -2,7 +2,7 @@
 #include <map>
 #include <utils/exception.hpp>
 
-namespace Palkia {
+namespace Ramuh {
 CellGraph2::CellGraph2() : CellGraph2::CellGraph2(BoundingBox2(0, 1)) {}
 
 CellGraph2::CellGraph2(BoundingBox2 region, int maxLevel) : _nodes(region) {
@@ -18,7 +18,7 @@ void CellGraph2::connectNodes(size_t nodeA, size_t nodeB) {
 void CellGraph2::destroyNode(size_t nodeId) {
   std::list<size_t> nodeEdges = _nodes.getNodeEdges(nodeId);
 
-  for (auto &&edge : nodeEdges) {
+  for (auto&& edge : nodeEdges) {
     destroyEdge(edge);
   }
   _nodes.destroyNode(nodeId);
@@ -33,7 +33,8 @@ void CellGraph2::destroyEdge(size_t edgeId) {
 }
 
 void CellGraph2::connectChildrenToParentNeighbors(
-    std::vector<size_t> childrenIds, std::vector<size_t> neighbors,
+    std::vector<size_t> childrenIds,
+    std::vector<size_t> neighbors,
     BoundingBox2 parentRegion) {
   int parentLevel = _nodes.getNodeLevel(childrenIds[0]) - 1;
   size_t edgeId;
@@ -47,17 +48,17 @@ void CellGraph2::connectChildrenToParentNeighbors(
   for (size_t i = 0; i < neighbors.size(); i++) {
     BoundingBox2::Side neighborSide = parentRegion.computeRelativePosition(
         _nodes.getNodeCenterPosition(neighbors[i]));
-    for (auto &&side : sideChildren) { // For all possible sidess
+    for (auto&& side : sideChildren) {  // For all possible sidess
       if (neighborSide == side.first) {
         if (_nodes.getNodeLevel(neighbors[i]) <= parentLevel) {
           // If parent level is equal to the neighbor level, normally connect
           // the children to that neighbor
-          for (auto &&childId : side.second) {
+          for (auto&& childId : side.second) {
             connectNodes(childrenIds[childId], neighbors[i]);
           }
         } else {
           // In this case, children should not connect to diagonal neighbors
-          for (auto &&childId : side.second) {
+          for (auto&& childId : side.second) {
             neighborSide = _nodes.getNodeRegion(childrenIds[childId])
                                .computeRelativePosition(
                                    _nodes.getNodeCenterPosition(neighbors[i]));
@@ -72,10 +73,10 @@ void CellGraph2::connectChildrenToParentNeighbors(
 }
 
 std::vector<size_t> CellGraph2::findNodeNeighbors(size_t nodeId) {
-  std::list<size_t> &nodeEdges = _nodes.getNodeEdges(nodeId);
+  std::list<size_t>& nodeEdges = _nodes.getNodeEdges(nodeId);
   std::vector<size_t> neighbors;
 
-  for (auto &&edge : nodeEdges) {
+  for (auto&& edge : nodeEdges) {
     if (_edges.isValid(edge)) {
       auto edgeNodes = _edges.getEdgeNodes(edge);
       if (edgeNodes[0] != nodeId) {
@@ -90,7 +91,7 @@ std::vector<size_t> CellGraph2::findNodeNeighbors(size_t nodeId) {
 
 std::vector<size_t> CellGraph2::refineNode(size_t nodeId) {
   if (nodeId >= _nodes.getCellsCount()) {
-    throw(Arceus::UnexpectedParameterException(306, "CellGraph2::refineNode"));
+    throw(Bahamut::UnexpectedParameterException(306, "CellGraph2::refineNode"));
   }
 
   std::vector<size_t> neighbors = findNodeNeighbors(nodeId);
@@ -130,7 +131,9 @@ std::vector<size_t> CellGraph2::refineNode(size_t nodeId) {
   return childrenIds;
 }
 
-int CellGraph2::getMaxLevel() { return _maxLevel; }
+int CellGraph2::getMaxLevel() {
+  return _maxLevel;
+}
 
 bool CellGraph2::canCoarse(std::vector<size_t> nodesId) {
   // Minimum family size requirement
@@ -151,7 +154,6 @@ bool CellGraph2::canCoarse(std::vector<size_t> nodesId) {
 }
 
 size_t CellGraph2::coarseNode(size_t nodeId) {
-
   std::vector<size_t> siblings = _nodes.findNodeSiblings(nodeId);
   // Minimum family size requirement
   if (siblings.size() != 4)
@@ -161,4 +163,4 @@ size_t CellGraph2::coarseNode(size_t nodeId) {
   return -1;
 }
 
-} // namespace Palkia
+}  // namespace Ramuh

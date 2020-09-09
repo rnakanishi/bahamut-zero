@@ -1,18 +1,18 @@
-#ifndef __ARCEUS_UTILS_EXCEPTION_HPP__
-#define __ARCEUS_UTILS_EXCEPTION_HPP__
+#ifndef __BAHAMUT_UTILS_EXCEPTION_HPP__
+#define __BAHAMUT_UTILS_EXCEPTION_HPP__
 
 #include <exception>
 #include <string>
 
-namespace Arceus {
+namespace Bahamut {
 
-class ArceusException : virtual public std::exception {
+class BahamutException : virtual public std::exception {
  public:
-  ArceusException();
-  ArceusException(std::string msg, std::string location);
-  ArceusException(int errorId, std::string location);
+  BahamutException();
+  BahamutException(std::string msg, std::string location);
+  BahamutException(int errorId, std::string location);
 
-  ~ArceusException() throw() {}
+  ~BahamutException() throw() {}
 
   /**
    * @brief Get the Error Number for this exception
@@ -60,7 +60,7 @@ class ArceusException : virtual public std::exception {
   bool _isLethal = true;
 };
 
-class UnexpectedParameterException : public ArceusException {
+class UnexpectedParameterException : public BahamutException {
  public:
   UnexpectedParameterException();
   explicit UnexpectedParameterException(std::string msg, std::string location);
@@ -71,7 +71,7 @@ class UnexpectedParameterException : public ArceusException {
   virtual void setErrorNumber(int newErrorNumber, std::string location = "");
 };
 
-class ConditionsNotMatchException : public ArceusException {
+class ConditionsNotMatchException : public BahamutException {
  public:
   ConditionsNotMatchException();
 
@@ -83,7 +83,7 @@ class ConditionsNotMatchException : public ArceusException {
   virtual void setErrorNumber(int newErrorNumber, std::string location = "");
 };
 
-class BadResultException : public ArceusException {
+class BadResultException : public BahamutException {
  public:
   BadResultException();
 
@@ -95,6 +95,6 @@ class BadResultException : public ArceusException {
   virtual void setErrorNumber(int newErrorNumber, std::string location = "");
 };
 
-}  // namespace Arceus
+}  // namespace Bahamut
 
 #endif

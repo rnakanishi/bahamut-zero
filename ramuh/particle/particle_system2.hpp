@@ -1,12 +1,12 @@
-#ifndef __PALKIA_PARTICLE_SYSTEM_2_HPP__
-#define __PALKIA_PARTICLE_SYSTEM_2_HPP__
+#ifndef __RAMUH_PARTICLE_SYSTEM_2_HPP__
+#define __RAMUH_PARTICLE_SYSTEM_2_HPP__
 
 #include <Eigen/Dense>
 #include <geometry/bounding_box.hpp>
 #include <map>
 #include <queue>
 
-namespace Palkia {
+namespace Ramuh {
 
 class ParticleSystem2 {
  public:
@@ -105,6 +105,6 @@ class ParticleSystem2 {
   size_t _activeParticleCount;
 };
 
-}  // namespace Palkia
+}  // namespace Ramuh
 
 #endif

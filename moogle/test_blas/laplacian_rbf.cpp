@@ -23,10 +23,10 @@ double laplacianFunction(Eigen::Array2d point) {
 }
 
 double laplacianRBF(int gridSize) {
-  Palkia::Levelset2 grid(Palkia::BoundingBox2(0, 1), Eigen::Array2i(gridSize));
-  Giratina::DifferentialRBF2 rbf;
+  Ramuh::Levelset2 grid(Ramuh::BoundingBox2(0, 1), Eigen::Array2i(gridSize));
+  Odin::DifferentialRBF2 rbf;
   std::map<int, double> analyticValues;
-  grid.initializeLevelset(Palkia::Levelset2::Shape::CIRCLE);
+  grid.initializeLevelset(Ramuh::Levelset2::Shape::CIRCLE);
 
   std::vector<Eigen::Triplet<double>> triplets;
   std::map<int, int> mapCellIds;
@@ -41,7 +41,7 @@ double laplacianRBF(int gridSize) {
     return mapCellIds[cellId];
   };
 
-  std::vector<double> &levelset = grid.getLevelsetField();
+  std::vector<double>& levelset = grid.getLevelsetField();
   std::map<int, double> bValues;
   for (size_t cellId = 0; cellId < grid.getCellCount(); cellId++) {
     rbf.clearSamples();
@@ -66,18 +66,18 @@ double laplacianRBF(int gridSize) {
     std::vector<size_t> neighborCellIds = grid.getNeighborCellsId(cellId);
     int icount = 0;
     std::vector<int> dirichletIndices;
-    for (auto &neighborId : neighborCellIds) {
+    for (auto& neighborId : neighborCellIds) {
       if (levelset[neighborId] <= 0) {
         size_t neighborMatrixId = mapFunction(neighborId);
         neighborsIdsVector.push_back(neighborMatrixId);
         rbf.addSamplePoint(grid.getCellPosition(neighborId), 0.0);
       } else {
         // Find surface direction
-        Palkia::Levelset2::Direction surfaceDirection;
+        Ramuh::Levelset2::Direction surfaceDirection;
         if (std::abs((int)cellId - (int)neighborId) == 1)
-          surfaceDirection = Palkia::Levelset2::Direction::HORIZONTAL;
+          surfaceDirection = Ramuh::Levelset2::Direction::HORIZONTAL;
         else
-          surfaceDirection = Palkia::Levelset2::Direction::VERTICAL;
+          surfaceDirection = Ramuh::Levelset2::Direction::VERTICAL;
 
         int surfaceOffset = 0;
         while (mapCellIds.find(neighborId + surfaceOffset) != mapCellIds.end())

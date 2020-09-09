@@ -1,30 +1,30 @@
 #include <utils/exception.hpp>
-namespace Arceus {
+namespace Bahamut {
 
-ArceusException::ArceusException()
-    : ArceusException("Exception occurred", "") {}
+BahamutException::BahamutException()
+    : BahamutException("Exception occurred", "") {}
 
-ArceusException::ArceusException(std::string msg, std::string location) {
+BahamutException::BahamutException(std::string msg, std::string location) {
   _errorMessage = msg;
   _callingLocation = location;
-  _exceptionName = "Arceus_Exception";
+  _exceptionName = "Bahamut_Exception";
   _errorNumber = 100;
 }
 
-ArceusException::ArceusException(int errorId, std::string location) {
+BahamutException::BahamutException(int errorId, std::string location) {
   _callingLocation = location;
-  _exceptionName = "Arceus_Exception";
+  _exceptionName = "Bahamut_Exception";
 }
 
-int ArceusException::getErrorNumber() const throw() {
+int BahamutException::getErrorNumber() const throw() {
   return _errorNumber;
 }
 
-const char* ArceusException::getErrorType() const throw() {
+const char* BahamutException::getErrorType() const throw() {
   return _exceptionName.c_str();
 }
 
-const char* ArceusException::what() const throw() {
+const char* BahamutException::what() const throw() {
   std::string error;
   if (_isLethal)
     error = "\033[1;31m[ERROR]\033[0m ";
@@ -39,20 +39,20 @@ const char* ArceusException::what() const throw() {
   return error.c_str();
 }
 
-void ArceusException::appendMessage(std::string message) {
+void BahamutException::appendMessage(std::string message) {
   _errorMessage.append("\n-----\n");
   _errorMessage.append(message);
 }
 
-void ArceusException::setLethality(bool lethality) {
+void BahamutException::setLethality(bool lethality) {
   _isLethal = lethality;
 }
 
-const bool& ArceusException::isLethal() {
+const bool& BahamutException::isLethal() {
   return _isLethal;
 }
 
-void ArceusException::setErrorNumber(int errorNumber, std::string location) {
+void BahamutException::setErrorNumber(int errorNumber, std::string location) {
   _errorNumber = errorNumber;
   switch (errorNumber) {
     case 100:
@@ -65,13 +65,13 @@ void ArceusException::setErrorNumber(int errorNumber, std::string location) {
       _errorMessage = "Method not implemented";
       break;
     default:
-      throw(ArceusException(101, location));
+      throw(BahamutException(101, location));
       break;
   }
 }
 
-void ArceusException::setCallingLocation(std::string location) {
+void BahamutException::setCallingLocation(std::string location) {
   _callingLocation = location;
 }
 
-}  // namespace Arceus
+}  // namespace Bahamut
