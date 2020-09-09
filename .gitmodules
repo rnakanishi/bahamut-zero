@@ -1,6 +1,3 @@
 [submodule "chocobo/Catch2"]
 	path = chocobo/Catch2
 	url = https://github.com/catchorg/Catch2.git
-[submodule "chocobo/imgui"]
-	path = garuda/imgui
-	url = https://github.com/ocornut/imgui.git
