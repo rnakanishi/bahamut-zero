@@ -28,18 +28,12 @@ class GarudaGUI {
  public:
   /**
    * @brief Construct a new Garuda G U I object
-   *
+   * It is responsible for setting up all GLFW and OpenGl context. After that,
+   * ImGUI environment is set.
    *
    */
   GarudaGUI();
-
-  /**
-   * @brief This method should be called before the rendering loop. It is
-   * responsible for setting up all GLFW and OpenGl context. After that, ImGUI
-   * environment is set.
-   *
-   */
-  void inializeContext();
+  GarudaGUI(int glfwMajor, int glfwMinor);
 
   /**
    * @brief This method should be the first thing called in the rendering loop.
@@ -80,6 +74,17 @@ class GarudaGUI {
    * @param description
    */
   static void errorCallback(int error, const char* description);
+
+  /**
+   * @brief This callback is used for GLFW to resize objects inside window
+   *
+   * @param window
+   * @param width
+   * @param height
+   */
+  static void framebufferResizeCallback(GLFWwindow* window,
+                                        int width,
+                                        int height);
 
  private:
   GLFWwindow* _window;

@@ -3,18 +3,30 @@
 #include <cmath>
 #include <garuda_gui.hpp>
 #include <iostream>
+#include <renderable/triangle_strip.hpp>
+#include <shaders/shader.hpp>
+
+#include "scene_object.hpp"
 
 int main(int argc, char const* argv[]) {
   Garuda::GarudaGUI interface;
-  interface.inializeContext();
+  Garuda::TriangleStrip triangles;
+  Alexander::SceneObject object;
+
+  triangles.addVerticeProperty("positions", object.loadObjectVertices());
+  triangles.addFaceProperty("vertexId", object.loadObjectFaces());
 
   char* displayText;
   float value;
   bool demoWindow = true;
+
+  triangles.sendDataToBuffer();
+
   while (!glfwWindowShouldClose(interface.getWindow())) {
     interface.newFrame();
 
     ImGui::ShowDemoWindow(&demoWindow);
+    triangles.render();
     interface.renderFrame();
   }
 

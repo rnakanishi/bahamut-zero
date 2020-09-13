@@ -8,10 +8,11 @@ ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp
 ${CMAKE_CURRENT_SOURCE_DIR}/imgui/*.hpp
 ${CMAKE_CURRENT_SOURCE_DIR}/imgui/*.h
 ${CMAKE_CURRENT_SOURCE_DIR}/glad/*.h
+${CMAKE_CURRENT_SOURCE_DIR}/renderable/*.hpp
 )
 file(GLOB SOURCES 
 ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/geometry/*.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/renderable/*.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/imgui/*.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/glad/*.c
 )
@@ -31,8 +32,8 @@ endif()
 
 add_dependencies(Garuda glfw)
 
-target_link_libraries(Garuda PUBLIC Bahamut ${GLFW_LIBRARIES} OpenGL glfw dl)
-add_dependencies(Garuda Bahamut)
+target_link_libraries(Garuda PUBLIC Bahamut Bismarck ${GLFW_LIBRARIES} OpenGL glfw dl)
+add_dependencies(Garuda Bahamut Bismarck)
 set_target_properties(Garuda PROPERTIES
         OUTPUT_NAME "Garuda"
         FOLDER "GARUDA")

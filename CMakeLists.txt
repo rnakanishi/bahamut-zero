@@ -69,10 +69,6 @@ find_package(Eigen3 REQUIRED)
 if(Eigen3_FOUND)
     message("-- Found Eigen3")
     include_directories(${EIGEN3_INCLUDE_DIR})
-else()
-    message("-- Building local Eigen3")
-    set(EIGEN3_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/external/eigen3)
-    include_directories(${EIGEN3_INCLUDE_DIR})
 endif()
 
 list( APPEND CMAKE_PREFIX_PATH "/opt/hfs18.0/toolkit/cmake" )
@@ -84,6 +80,7 @@ endif()
 add_subdirectory(ramuh) # Geometric structures lib
 add_subdirectory(bahamut) # General utility library
 add_subdirectory(odin) # Mathematical/Blas library
-add_subdirectory(moogle) # Tests library
+add_subdirectory(bismarck) # Deploying final appllications
 add_subdirectory(garuda) # Graaphical interface library
+add_subdirectory(moogle) # Tests library
 add_subdirectory(alexander) # Deploying final appllications
