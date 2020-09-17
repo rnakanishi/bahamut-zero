@@ -3,14 +3,14 @@
 #include <cmath>
 #include <garuda_gui.hpp>
 #include <iostream>
-#include <renderable/triangle_strip.hpp>
+#include <renderable/triangle_mesh.hpp>
 #include <shaders/shader.hpp>
 
 #include "scene_object.hpp"
 
 int main(int argc, char const* argv[]) {
   Garuda::GarudaGUI interface;
-  Garuda::TriangleStrip triangles;
+  Garuda::TriangleMesh triangles;
   Alexander::SceneObject object;
 
   triangles.addVerticeProperty("positions", object.loadObjectVertices());

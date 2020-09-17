@@ -77,8 +77,8 @@ if(Houdini_FOUND)
     message("-- Found Houdini")
 endif()
 
-add_subdirectory(ramuh) # Geometric structures lib
 add_subdirectory(bahamut) # General utility library
+add_subdirectory(ramuh) # Geometric structures lib
 add_subdirectory(odin) # Mathematical/Blas library
 add_subdirectory(bismarck) # Deploying final appllications
 add_subdirectory(garuda) # Graaphical interface library

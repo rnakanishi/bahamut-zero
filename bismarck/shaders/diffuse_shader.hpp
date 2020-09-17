@@ -6,6 +6,8 @@
 namespace Bismarck {
 class BlinnPhongShader : public Shader {
  public:
+  BlinnPhongShader();
+
  private:
 };
 }  // namespace Bismarck

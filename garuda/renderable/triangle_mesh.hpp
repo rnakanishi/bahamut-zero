@@ -1,5 +1,5 @@
-#ifndef __GARUDA_TRIANGLE_STRIPS_HPP__
-#define __GARUDA_TRIANGLE_STRIPS_HPP__
+#ifndef __GARUDA_TRIANGLE_MESH_HPP__
+#define __GARUDA_TRIANGLE_MESH_HPP__
 
 #include <Eigen/Dense>
 #include <map>
@@ -8,7 +8,7 @@
 #include <vector>
 
 namespace Garuda {
-class TriangleStrip : public RenderObject {
+class TriangleMesh : public RenderObject {
  public:
   /**
    * @brief Construct a new Triangle Strip object. This class' objects always
@@ -21,10 +21,10 @@ class TriangleStrip : public RenderObject {
    *  Scalar properties are always float based values
    *
    */
-  TriangleStrip();
-  TriangleStrip(std::vector<Eigen::Array3f> positions);
+  TriangleMesh();
+  TriangleMesh(std::vector<Eigen::Array3f> positions);
 
-  ~TriangleStrip();
+  ~TriangleMesh();
 
   /**
    * @brief Adds a vector property with a propertyName. The full content of the
@@ -63,9 +63,23 @@ class TriangleStrip : public RenderObject {
    */
   int addScalarProperty(std::string propertyName, std::vector<float> content);
 
+  /**
+   * @brief
+   *
+   */
   void render() override;
 
+  void assignMaterial(Bismarck::Material newMaterial);
+
   void sendDataToBuffer() override;
+
+  bool& hasTexture();
+  bool& hasNormal();
+  bool& hasMaterial();
+
+  void hasTexture(bool value);
+  void hasNormal(bool value);
+  void hasMaterial(bool value);
 
  private:
   std::map<std::string, unsigned int> vertexVectorLabels;

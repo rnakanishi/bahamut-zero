@@ -17,13 +17,20 @@ class Shader {
 
   void checkProgramErrors(unsigned int programId);
 
+  /**
+   * @brief This method calls the shader program to use itself. If the shader is
+   * not compiled, it tries to compile and then bind it to be used.
+   *
+   */
+  void render();
+
  protected:
+  std::string _shaderName;
+  bool _isCompiled;
+
   unsigned int _vertexShader;
   unsigned int _fragShader;
   unsigned int _shaderProgram;
-
-  char* _vertexSource;
-  char* _fragSource;
 };
 }  // namespace Bismarck
 

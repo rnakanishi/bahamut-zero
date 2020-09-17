@@ -1,12 +1,12 @@
 #include <glad/glad.h>
-
-#include <renderable/triangle_strip.hpp>
+#include <renderable/triangle_mesh.hpp>
+#include <shaders/shader.hpp>
 
 namespace Garuda {
 
-TriangleStrip::TriangleStrip() : TriangleStrip(std::vector<Eigen::Array3f>()) {}
+TriangleMesh::TriangleMesh() : TriangleMesh(std::vector<Eigen::Array3f>()) {}
 
-TriangleStrip::TriangleStrip(std::vector<Eigen::Array3f> positions)
+TriangleMesh::TriangleMesh(std::vector<Eigen::Array3f> positions)
     : RenderObject() {
   vertexVectorLabels["positions"] = 0;
   vertexVectorPropeties.emplace_back(std::vector<float>());
@@ -17,10 +17,10 @@ TriangleStrip::TriangleStrip(std::vector<Eigen::Array3f> positions)
   }
 }
 
-TriangleStrip::~TriangleStrip() {}
+TriangleMesh::~TriangleMesh() {}
 
-int TriangleStrip::addVerticeProperty(std::string name,
-                                      std::vector<Eigen::Array4f> dataVector) {
+int TriangleMesh::addVerticeProperty(std::string name,
+                                     std::vector<Eigen::Array4f> dataVector) {
   unsigned int propertyId;
   // Check for existing property name
   if (vertexVectorLabels.find(name) == vertexVectorLabels.end()) {
@@ -41,8 +41,8 @@ int TriangleStrip::addVerticeProperty(std::string name,
   return propertyId;
 }
 
-int TriangleStrip::addVerticeProperty(std::string name,
-                                      std::vector<Eigen::Array3f> dataVector) {
+int TriangleMesh::addVerticeProperty(std::string name,
+                                     std::vector<Eigen::Array3f> dataVector) {
   unsigned int propertyId;
   // Check for existing property name
   if (vertexVectorLabels.find(name) == vertexVectorLabels.end()) {
@@ -63,8 +63,8 @@ int TriangleStrip::addVerticeProperty(std::string name,
   return propertyId;
 }
 
-int TriangleStrip::addVerticeProperty(std::string name,
-                                      std::vector<Eigen::Array2f> dataVector) {
+int TriangleMesh::addVerticeProperty(std::string name,
+                                     std::vector<Eigen::Array2f> dataVector) {
   unsigned int propertyId;
   // Check for existing property name
   if (vertexVectorLabels.find(name) == vertexVectorLabels.end()) {
@@ -85,8 +85,8 @@ int TriangleStrip::addVerticeProperty(std::string name,
   return propertyId;
 }
 
-int TriangleStrip::addFaceProperty(std::string name,
-                                   std::vector<Eigen::Array3i> dataVector) {
+int TriangleMesh::addFaceProperty(std::string name,
+                                  std::vector<Eigen::Array3i> dataVector) {
   unsigned int propertyId;
   // Check for existing property name
   if (faceScalarLabels.find(name) == faceScalarLabels.end()) {
@@ -105,17 +105,17 @@ int TriangleStrip::addFaceProperty(std::string name,
   return propertyId;
 }
 
-int TriangleStrip::addFaceProperty(std::string name,
-                                   std::vector<Eigen::Array3f> dataVector) {
+int TriangleMesh::addFaceProperty(std::string name,
+                                  std::vector<Eigen::Array3f> dataVector) {
   return -1;
 }
 
-int TriangleStrip::addFaceProperty(std::string name,
-                                   std::vector<Eigen::Array4f> dataVector) {
+int TriangleMesh::addFaceProperty(std::string name,
+                                  std::vector<Eigen::Array4f> dataVector) {
   return -1;
 }
 
-void TriangleStrip::sendDataToBuffer() {
+void TriangleMesh::sendDataToBuffer() {
   glBindVertexArray(_vao);
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
   glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexVectorPropeties[0].size(),
@@ -140,14 +140,19 @@ void TriangleStrip::sendDataToBuffer() {
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-  _shader.compileShader();
+  _material.compileShader();
 }
 
-void TriangleStrip::render() {
-  glUseProgram(_shader.getShaderProgram());
+void TriangleMesh::render() {
+  _material.render();
+
   glBindVertexArray(_vao);
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);
+}
+
+void TriangleMesh::assignMaterial(Bismarck::Material newMaterial) {
+  _material = newMaterial;
 }
 
 }  // namespace Garuda

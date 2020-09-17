@@ -23,8 +23,8 @@ if(OpenGL_FOUND)
   message("-- Set GL_PREFERENCE to LEGACY")
 endif()
 
-target_link_libraries(Bismarck PUBLIC Bahamut OpenGL dl)
 add_dependencies(Bismarck Bahamut)
+target_link_libraries(Bismarck PUBLIC Bahamut OpenGL dl)
 set_target_properties(Bismarck PROPERTIES
         OUTPUT_NAME "Bismarck"
         FOLDER "BISMARCK")

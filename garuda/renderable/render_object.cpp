@@ -19,9 +19,4 @@ RenderObject::~RenderObject() {
   glDeleteBuffers(1, &_vbo);
 }
 
-void RenderObject::bindShader(Bismarck::Shader shader) {
-  _shader = shader;
-  _shader.compileShader();
-}
-
 }  // namespace Garuda
