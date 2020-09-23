@@ -8,9 +8,9 @@ class SceneObject {
  public:
   SceneObject();
 
-  std::vector<Eigen::Array3f> loadObjectVertices();
+  std::vector<Eigen::ArrayXf> loadObjectVertices();
 
-  std::vector<Eigen::Array3i> loadObjectFaces();
+  std::vector<Eigen::ArrayXi> loadObjectFaces();
 
  private:
 };

@@ -1,5 +1,5 @@
 #include <grid/cell_graph2.hpp>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 
 namespace Ramuh {
 

@@ -7,7 +7,7 @@
 #include <geometry/levelset.hpp>
 #include <iostream>
 #include <random>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 
 TEST_CASE("Laplacian weights RBF-FD", "[rbf, finite_difference]") {
   Odin::DifferentialRBF2 rbf;

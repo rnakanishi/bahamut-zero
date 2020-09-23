@@ -1,7 +1,7 @@
 #ifndef __GARUDA_RENDER_OBJECT_HPP__
 #define __GARUDA_RENDER_OBJECT_HPP__
 
-#include <shaders/material.hpp>
+#include <materials/material.hpp>
 #include <shaders/shader.hpp>
 
 namespace Garuda {

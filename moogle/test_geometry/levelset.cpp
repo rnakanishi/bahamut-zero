@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 #include <geometry/levelset.hpp>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 
 TEST_CASE("Levelset surface location", "[levelset]") {
   Ramuh::Levelset2 levelset;

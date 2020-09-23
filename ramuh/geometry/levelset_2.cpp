@@ -1,7 +1,7 @@
 #include <omp.h>
 
 #include <geometry/levelset.hpp>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 
 namespace Ramuh {
 Levelset2::Levelset2() : Levelset2(BoundingBox2(), Eigen::Array2i(32, 32)) {}

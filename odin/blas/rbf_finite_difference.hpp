@@ -2,7 +2,7 @@
 #define __ODIN_RBF_FINITE_DIFFERENCE_HPP__
 
 #include <Eigen/Dense>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 #include <vector>
 
 namespace Odin {

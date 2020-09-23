@@ -1,5 +1,5 @@
 #include <grid/cell_centered_grid.hpp>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 
 namespace Ramuh {
 

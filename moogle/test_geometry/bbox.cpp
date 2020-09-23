@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 #include <geometry/bounding_box.hpp>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 
 TEST_CASE("Bounding box constructors", "[bbox, geometry]") {
   Eigen::Array2d zero(0., 0.);

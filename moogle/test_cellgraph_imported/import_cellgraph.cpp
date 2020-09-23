@@ -12,7 +12,7 @@
 #include <iostream>
 #include <map>
 #include <random>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 #include <vector>
 
 #include "cellgraph_temp.hpp"

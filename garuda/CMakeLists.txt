@@ -9,11 +9,13 @@ ${CMAKE_CURRENT_SOURCE_DIR}/imgui/*.hpp
 ${CMAKE_CURRENT_SOURCE_DIR}/imgui/*.h
 ${CMAKE_CURRENT_SOURCE_DIR}/glad/*.h
 ${CMAKE_CURRENT_SOURCE_DIR}/renderable/*.hpp
+${CMAKE_CURRENT_SOURCE_DIR}/garuda_utils/*.hpp
 ${CMAKE_CURRENT_SOURCE_DIR}/scene/*.hpp
 )
 file(GLOB SOURCES 
 ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/renderable/*.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/garuda_utils/*.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/scene/*.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/imgui/*.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/glad/*.c
@@ -29,8 +31,9 @@ set(OpenGL_GL_PREFERENCE LEGACY)
 
 add_dependencies(Garuda glfw)
 add_dependencies(Garuda Bahamut Bismarck)
+add_dependencies(Garuda tinyobjloader)
 
-target_link_libraries(Garuda PUBLIC Bahamut Bismarck ${GLFW_LIBRARIES} OpenGL glfw dl)
+target_link_libraries(Garuda PUBLIC Bahamut Bismarck ${GLFW_LIBRARIES} tinyobjloader OpenGL glfw dl)
 set_target_properties(Garuda PROPERTIES
         OUTPUT_NAME "Garuda"
         FOLDER "GARUDA")

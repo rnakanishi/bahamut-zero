@@ -1,6 +1,6 @@
 #include <grid/cell_graph2.hpp>
 #include <map>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 
 namespace Ramuh {
 CellGraph2::CellGraph2() : CellGraph2::CellGraph2(BoundingBox2(0, 1)) {}

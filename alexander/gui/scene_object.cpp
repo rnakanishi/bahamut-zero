@@ -3,8 +3,8 @@
 namespace Alexander {
 SceneObject::SceneObject() {}
 
-std::vector<Eigen::Array3f> SceneObject::loadObjectVertices() {
-  std::vector<Eigen::Array3f> object;
+std::vector<Eigen::ArrayXf> SceneObject::loadObjectVertices() {
+  std::vector<Eigen::ArrayXf> object;
 
   object.emplace_back(Eigen::Array3f(0.5f, 0.5f, 0.0f));
   object.emplace_back(Eigen::Array3f(0.5f, -0.5f, 0.0f));
@@ -14,10 +14,10 @@ std::vector<Eigen::Array3f> SceneObject::loadObjectVertices() {
   return object;
 }
 
-std::vector<Eigen::Array3i> SceneObject::loadObjectFaces() {
-  std::vector<Eigen::Array3i> faces;
-  faces.emplace_back(0, 1, 2);
-  faces.emplace_back(0, 2, 3);
+std::vector<Eigen::ArrayXi> SceneObject::loadObjectFaces() {
+  std::vector<Eigen::ArrayXi> faces;
+  faces.emplace_back(Eigen::Array3i(0, 1, 2));
+  faces.emplace_back(Eigen::Array3i(0, 2, 3));
   return faces;
 }
 

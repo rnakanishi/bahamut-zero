@@ -3,7 +3,8 @@
 
 #include <Eigen/Dense>
 #include <map>
-#include <renderable/render_object.hpp>
+#include <materials/texture_material.hpp>
+#include <renderable/texture_object.hpp>
 #include <string>
 #include <vector>
 
@@ -38,18 +39,18 @@ class TriangleMesh : public RenderObject {
    * @return int the index of the property stored in the class
    */
   int addVerticeProperty(std::string propertyName,
-                         std::vector<Eigen::Array4f> content);
-  int addVerticeProperty(std::string propertyName,
-                         std::vector<Eigen::Array3f> content);
-  int addVerticeProperty(std::string propertyName,
-                         std::vector<Eigen::Array2f> content);
+                         std::vector<Eigen::ArrayXf> content);
 
+  /**
+   * @brief Adds a face property with propertyName. The full content of the
+   * vector should be given as parameter.
+   *
+   * @param propertyName
+   * @param content
+   * @return int
+   */
   int addFaceProperty(std::string propertyName,
-                      std::vector<Eigen::Array3i> content);
-  int addFaceProperty(std::string propertyName,
-                      std::vector<Eigen::Array3f> content);
-  int addFaceProperty(std::string propertyName,
-                      std::vector<Eigen::Array4f> content);
+                      std::vector<Eigen::ArrayXi> content);
 
   /**
    * @brief Adds a scalar property with a propertyName. The full content of the
@@ -69,17 +70,16 @@ class TriangleMesh : public RenderObject {
    */
   void render() override;
 
+  /**
+   * @brief Assign a new MAterial to the triangle mesh
+   *
+   * @param newMaterial
+   */
   void assignMaterial(Bismarck::Material newMaterial);
 
   void sendDataToBuffer() override;
 
-  bool& hasTexture();
-  bool& hasNormal();
-  bool& hasMaterial();
-
-  void hasTexture(bool value);
-  void hasNormal(bool value);
-  void hasMaterial(bool value);
+  Garuda::TextureObject& getTexture();
 
  private:
   std::map<std::string, unsigned int> vertexVectorLabels;
@@ -97,6 +97,10 @@ class TriangleMesh : public RenderObject {
 
   std::vector<unsigned int> vectorPropertyDimension;
   std::vector<std::vector<float>> vertexSacalarPropeties;
+
+  Eigen::Matrix4f _modelMatrix, _normalMatrix;
+  Bismarck::Material _material;
+  Garuda::TextureObject _texture;
 };
 }  // namespace Garuda
 

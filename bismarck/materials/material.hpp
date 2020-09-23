@@ -18,9 +18,16 @@ class Material {
    * not compiled, it tries to compile and then bind it to be used.
    *
    */
-  void render();
+  virtual void render();
 
- private:
+  /**
+   * @brief Create a small interface component to help the user set material
+   * values
+   *
+   */
+  virtual void showUI();
+
+ protected:
   Shader _shader;
 };
 

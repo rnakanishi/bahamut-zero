@@ -1,4 +1,4 @@
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 namespace Bahamut {
 
 BahamutException::BahamutException()

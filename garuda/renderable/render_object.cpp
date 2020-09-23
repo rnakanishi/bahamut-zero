@@ -14,9 +14,6 @@ RenderObject::RenderObject() {
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
 }
 
-RenderObject::~RenderObject() {
-  glDeleteVertexArrays(1, &_vao);
-  glDeleteBuffers(1, &_vbo);
-}
+RenderObject::~RenderObject() {}
 
 }  // namespace Garuda

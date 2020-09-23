@@ -14,9 +14,7 @@ Shader::Shader() {
   _isCompiled = false;
 }
 
-Shader::~Shader() {
-  glDeleteProgram(_shaderProgram);
-}
+Shader::~Shader() {}
 
 unsigned int Shader::getShaderProgram() {
   return _shaderProgram;

@@ -8,7 +8,7 @@
 #include <iostream>
 #include <map>
 #include <random>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 #include <vector>
 
 double analyticFunction(Eigen::Array2d point) {

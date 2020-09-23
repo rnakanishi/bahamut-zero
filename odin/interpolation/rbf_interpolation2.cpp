@@ -1,5 +1,5 @@
 #include <interpolation/rbf_interpolation.hpp>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 
 namespace Odin {
 RBFInterpolation2::RBFInterpolation2() {

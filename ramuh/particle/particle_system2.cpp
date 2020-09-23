@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <particle/particle_system.hpp>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 
 namespace Ramuh {
 ParticleSystem2::ParticleSystem2() : ParticleSystem2(BoundingBox2()) {}

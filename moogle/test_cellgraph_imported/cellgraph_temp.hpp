@@ -1,12 +1,12 @@
+#include <exceptions/exception.hpp>
 #include <fstream>
 #include <geometry/bounding_box.hpp>
 #include <iostream>
 #include <map>
-#include <utils/exception.hpp>
 #include <vector>
 
 class CellGraphTemp {
-public:
+ public:
   CellGraphTemp();
   CellGraphTemp(std::string filename);
 
@@ -20,13 +20,13 @@ public:
 
   bool isValid(int);
 
-  std::vector<int> &getNeighborCellsId(int);
+  std::vector<int>& getNeighborCellsId(int);
 
-  std::vector<double> &getLevelsetField();
+  std::vector<double>& getLevelsetField();
 
   Eigen::Array2d findSurfacePosition(int cellId, int neighborId);
 
-protected:
+ protected:
   int cellCount;
 
   std::vector<double> levelsetField;

@@ -77,6 +77,11 @@ if(Houdini_FOUND)
     message("-- Found Houdini")
 endif()
 
+include(ExternalProject)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/chocobo")
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/chocobo/tinyobjloader" 
+                                                    "chocobo/tinyobjloader")
+
 add_subdirectory(bahamut) # General utility library
 add_subdirectory(ramuh) # Geometric structures lib
 add_subdirectory(odin) # Mathematical/Blas library

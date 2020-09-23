@@ -1,6 +1,6 @@
 #include <glad/glad.h>
 #include <iostream>
-#include <shaders/material.hpp>
+#include <materials/material.hpp>
 
 namespace Bismarck {
 
@@ -13,5 +13,7 @@ void Material::compileShader() {
 void Material::render() {
   _shader.render();
 }
+
+void Material::showUI() {}
 
 }  // namespace Bismarck

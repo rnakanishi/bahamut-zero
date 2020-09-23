@@ -5,7 +5,7 @@
 #include <geometry/bounding_box.hpp>
 #include <map>
 #include <string>
-#include <utils/exception.hpp>
+#include <exceptions/exception.hpp>
 #include <vector>
 
 namespace Ramuh {
