@@ -173,6 +173,25 @@ class BoundingBox2 {
    */
   BoundingBox2::Side computeRelativePosition(Eigen::Array2d point);
 
+  /**
+   * @brief Computes a new bounding box that contains both boxes: this box
+   * instance and the given box.
+   * This method modifies this instance box, if necessary, and returns its
+   * volume.
+   *
+   * A single point can also be used as parameter. In this case, the following
+   * procedure is made:
+   *  - Check if point is outside
+   *  - Increase the box boundaries, if so.
+   *  - Return the new volume.
+   *
+   * @param box
+   * @return BoundingBox2
+   */
+  // TODO : implement this method in 2D
+  BoundingBox2 mergeBoxes(BoundingBox2 box);
+  BoundingBox2 mergeBoxes(Eigen::Array2d box);
+
  private:
   Eigen::Array2d _min, _max;
 };
@@ -351,6 +370,40 @@ class BoundingBox3 {
    * relative positions
    */
   BoundingBox3::Side computeRelativePosition(Eigen::Array3d point);
+
+  /**
+   * @brief Computes a new bounding box that contains both boxes: this box
+   * instance and the given box.
+   * This method modifies this instance box, if necessary, and returns its
+   * volume.
+   *
+   * A single point can also be used as parameter. In this case, the following
+   * procedure is made:
+   *  - Check if point is outside
+   *  - Increase the box boundaries, if so.
+   *  - Return the new volume.
+   *
+   * @param box
+   * @return BoundingBox3
+   */
+  BoundingBox3 mergeBoxes(BoundingBox3 box);
+  BoundingBox3 mergeBoxes(Eigen::Array3d point);
+
+  /**
+   * @brief This method measures the sides of the box and make all the sides
+   * equal, taking into consideration the box center and the biggest side.
+   *
+   */
+  void cubify();
+
+  /**
+   * @brief Given a point in 3D space, compute the minimum distance from that
+   * point to the cube (vertex, edge or face)
+   *
+   * @param point
+   * @return double
+   */
+  double computeDistanceToPoint(Eigen::Array3d point);
 
  private:
   Eigen::Array3d _min, _max;
