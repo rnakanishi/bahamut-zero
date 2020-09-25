@@ -12,19 +12,19 @@ BoundingBox3::BoundingBox3(Eigen::Array3d min, Eigen::Array3d max) {
   _max = max.max(min);
 }
 
-Eigen::Array3d BoundingBox3::getMin() {
+Eigen::Array3d BoundingBox3::getMin() const {
   return _min;
 }
 
-Eigen::Array3d BoundingBox3::getMax() {
+Eigen::Array3d BoundingBox3::getMax() const {
   return _max;
 }
 
-Eigen::Array3d BoundingBox3::getCenter() {
+Eigen::Array3d BoundingBox3::getCenter() const {
   return (_max + _min) / 2.0;
 }
 
-Eigen::Array3d BoundingBox3::getSize() {
+Eigen::Array3d BoundingBox3::getSize() const {
   return _max - _min;
 }
 
@@ -52,14 +52,14 @@ Eigen::Array3d BoundingBox3::clamp(Eigen::Array3d point) {
   return point;
 }
 
-bool BoundingBox3::contains(Eigen::Array3d point) {
+bool BoundingBox3::contains(Eigen::Array3d point) const {
   if ((point[0] <= _max[0] && point[1] <= _max[1] && point[2] <= _max[2]) &&
       (point[0] >= _min[0] && point[1] >= _min[1] && point[2] >= _min[2]))
     return true;
   return false;
 }
 
-bool BoundingBox3::contains(BoundingBox3 box) {
+bool BoundingBox3::contains(BoundingBox3 box) const {
   auto bmin = box.getMin();
   auto bmax = box.getMax();
   if (contains(bmin) && contains(bmax))
@@ -151,7 +151,10 @@ void BoundingBox3::cubify() {
   setMax(center + biggestSize / 2.0);
 }
 
-double BoundingBox3::computeDistanceToPoint(Eigen::Array3d point) {
+double BoundingBox3::computeDistanceToPoint(Eigen::Array3d point) const {
+  if (contains(point))
+    return 0.0;
+
   // Align with (-1,-,1-,1) (1,1,1)
   point = point - getCenter();
   point = point / (getSize() / 2.);
@@ -164,6 +167,68 @@ double BoundingBox3::computeDistanceToPoint(Eigen::Array3d point) {
   pointVector = pointVector.cwiseProduct((getSize().matrix() / 2.0));
 
   return pointVector.norm();
+}
+
+bool BoundingBox3::_performSatTestCategory3(
+    std::vector<Eigen::Array3d> triangle,
+    Eigen::Vector3d axis) const {
+  Eigen::Array3d extent((_max - _min) * 0.5);
+  std::vector<Eigen::Vector3d> normals;  // Box normals
+  Eigen::Array3d p;
+  normals.emplace_back(1, 0, 0);
+  normals.emplace_back(0, 1, 0);
+  normals.emplace_back(0, 0, 1);
+  double r = 0;
+  for (size_t i = 0; i < 3; i++) {
+    r += extent[i] * std::abs(normals[i].dot(axis));
+    p[i] = triangle[i].matrix().dot(axis);
+  }
+  return (std::max(-p.maxCoeff(), p.minCoeff()) > r);
+}
+
+bool BoundingBox3::doesIntersectWithTriangle(
+    std::vector<Eigen::Array3d> triangle) const {
+  Eigen::Array3d center = getCenter();
+  // Translate box to origin
+  for (auto& vertex : triangle) {
+    vertex = vertex - center;
+  }
+  Eigen::Array3d extent((_max - _min) * 0.5);
+
+  // Test category 3: axis from cross products combination of both edges
+  std::vector<Eigen::Vector3d> normals;  // Box normals
+  normals.emplace_back(1, 0, 0);
+  normals.emplace_back(0, 1, 0);
+  normals.emplace_back(0, 0, 1);
+  std::vector<Eigen::Vector3d> edges;  // Triangle edges
+  edges.emplace_back(Eigen::Vector3d(triangle[0] - triangle[1]));
+  edges.emplace_back(Eigen::Vector3d(triangle[1] - triangle[2]));
+  edges.emplace_back(Eigen::Vector3d(triangle[2] - triangle[0]));
+  for (auto& normal : normals) {
+    for (auto& edge : edges) {
+      if (_performSatTestCategory3(triangle, normal.cross(edge)))
+        return false;
+    }
+  }
+
+  // Test category 1: box face normals
+  for (size_t i = 0; i < 3; i++) {
+    double coordMax =
+        std::max(std::max(normals[0][i], normals[1][i]), normals[2][i]);
+    for (size_t i = 0; i < 3; i++) {
+      double coordMin =
+          std::min(std::min(normals[0][i], normals[1][i]), normals[2][i]);
+      if (coordMax < -extent[i] || coordMin > extent[i]) {
+        return false;
+      }
+    }
+  }
+
+  // Test category 2: triangle face normal
+  Eigen::Vector3d tNormal = edges[0].cross(edges[1]).normalized();
+  double r = extent.matrix().dot(tNormal.cwiseAbs());
+  double distPlane = -tNormal.dot(triangle[0].matrix());
+  return std::abs(distPlane) <= r;
 }
 
 }  // namespace Ramuh

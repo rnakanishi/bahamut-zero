@@ -157,3 +157,66 @@ TEST_CASE("Merging bounding boxes 3D", "[bbox, geometry]") {
     REQUIRE(bbox.getMax().isApprox(Eigen::Array3d(1.2, 1, 1)));
   }
 }
+
+TEST_CASE("Triangle intersection", "[bbox, triangles, geometry]") {
+  Ramuh::BoundingBox3 bbox(0, 1);
+  std::vector<Eigen::Array3d> triangle;
+
+  {
+    triangle.emplace_back(0.6, 0.5, -0.6);
+    triangle.emplace_back(0.6, 0.5, 0.4);
+    triangle.emplace_back(1.6, 0.5, 0.4);
+    REQUIRE(bbox.doesIntersectWithTriangle(triangle) == true);
+    triangle.clear();
+  }
+  {
+    triangle.emplace_back(-0.65, 0.6, 0.5);
+    triangle.emplace_back(-0.65, 0.6, 1.5);
+    triangle.emplace_back(0.35, 0.6, 1.5);
+    REQUIRE(bbox.doesIntersectWithTriangle(triangle) == false);
+    triangle.clear();
+  }
+  {
+    triangle.emplace_back(-0.5, 0.828606, 0.116978);
+    triangle.emplace_back(-0.5, 1.47139, 0.883022);
+    triangle.emplace_back(0.5, 1.47139, 0.883022);
+    REQUIRE(bbox.doesIntersectWithTriangle(triangle) == false);
+    triangle.clear();
+  }
+  {
+    triangle.emplace_back(0.399608, 0.48483, 1.32035);
+    triangle.emplace_back(1.27808, 0.184452, 0.948779);
+    triangle.emplace_back(0.800392, -0.38483, 0.279649);
+    REQUIRE(bbox.doesIntersectWithTriangle(triangle) == true);
+    triangle.clear();
+  }
+  {
+    triangle.emplace_back(0.0159708, 0.527874, 0.724267);
+    triangle.emplace_back(0.723652, 0.362888, 0.0372683);
+    triangle.emplace_back(0.723652, 0.362888, 0.0372683);
+    REQUIRE(bbox.doesIntersectWithTriangle(triangle) == true);
+    triangle.clear();
+  }
+  {
+    triangle.emplace_back(-0.439505, 1.52507, 2.67478);
+    triangle.emplace_back(2.23974, 0.914007, 0.0850533);
+    triangle.emplace_back(-0.147922, -1.1578, -1.89628);
+    REQUIRE(bbox.doesIntersectWithTriangle(triangle) == true);
+    triangle.clear();
+  }
+  {
+    triangle.emplace_back(-2.76616, 0.108621, 5.07756);
+    triangle.emplace_back(2.75186, -1.14989, -0.256099);
+    triangle.emplace_back(0.754494, 2.58028, -3.20266);
+    REQUIRE(bbox.doesIntersectWithTriangle(triangle) == true);
+    triangle.clear();
+  }
+  {
+    Ramuh::BoundingBox3 bbox(1.5, 2.5);
+    triangle.emplace_back(1.5 + -2.76616, 1.5 + 0.108621, 1.5 + 5.07756);
+    triangle.emplace_back(1.5 + 2.75186, 1.5 + -1.14989, 1.5 + -0.256099);
+    triangle.emplace_back(1.5 + 0.754494, 1.5 + 2.58028, 1.5 + -3.20266);
+    REQUIRE(bbox.doesIntersectWithTriangle(triangle) == true);
+    triangle.clear();
+  }
+}

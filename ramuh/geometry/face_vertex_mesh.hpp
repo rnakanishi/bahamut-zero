@@ -101,7 +101,7 @@ class FaceVertexMesh {
    *
    * @return const std::vector<Eigen::Array3f>&
    */
-  const std::vector<Eigen::Array3f>& getVerticesPosition();
+  const std::vector<Eigen::Array3f>& getVerticesPositionVector();
 
   bool doesFaceContainPoint(int faceId, Eigen::Array3f point);
 

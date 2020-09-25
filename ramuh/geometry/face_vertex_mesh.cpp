@@ -58,7 +58,7 @@ const BoundingBox3& FaceVertexMesh::computeBoundingBox() {
   return _bbox;
 }
 
-const std::vector<Eigen::Array3f>& FaceVertexMesh::getVerticesPosition() {
+const std::vector<Eigen::Array3f>& FaceVertexMesh::getVerticesPositionVector() {
   return _verticesPosition;
 }
 

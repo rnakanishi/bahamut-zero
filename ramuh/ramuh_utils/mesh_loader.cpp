@@ -30,7 +30,6 @@ void MeshLoader::loadObj(const std::string& filename, FaceVertexMesh& mesh) {
                                      attributes.normals[3 * i + 2]));
     }
   }
-  std::cerr << "Vertices size: " << attributes.vertices.size() / 3 << std::endl;
 
   for (auto shape : shapes)
     for (int i = 0; i < shapes[0].mesh.indices.size() / 3; i++) {
@@ -39,8 +38,6 @@ void MeshLoader::loadObj(const std::string& filename, FaceVertexMesh& mesh) {
                                   shape.mesh.indices[3 * i + 2].vertex_index));
     }
 
-  std::cout << "Read " << mesh.getVerticesCount() << " vertices and "
-            << mesh.getFacesCount() << " faces\n";
   //   for (auto vertex : attributes.vertices) {
   // mesh.addVertex(Eigen::Array3f(vertex[0], vertex[1], vertex[2]));
   //   }

@@ -246,21 +246,21 @@ class BoundingBox3 {
    * @return Eigen::Array3d Each coordinate of the array corresponds to the
    *respective side's size.
    **/
-  Eigen::Array3d getSize();
+  Eigen::Array3d getSize() const;
 
   /**
    * @brief Get the minimum coordinate (left bottom) vertex location
    *
    * @return Eigen::Array3d coordinate
    */
-  Eigen::Array3d getMin();
+  Eigen::Array3d getMin() const;
 
   /**
    * @brief Get the Max coordinate (rigth top) vertex location
    *
    * @return Eigen::Array3d coordinate
    */
-  Eigen::Array3d getMax();
+  Eigen::Array3d getMax() const;
 
   /**
    * @brief Get the center coordinate of the bounding box. It is computed over
@@ -268,7 +268,7 @@ class BoundingBox3 {
    *
    * @return Eigen::Array3d
    */
-  Eigen::Array3d getCenter();
+  Eigen::Array3d getCenter() const;
 
   /**
    * @brief Set the minimum coordinate (left bottom) of the bounding box. If a
@@ -311,7 +311,7 @@ class BoundingBox3 {
    * @return true if inside
    * @return false otherwise
    */
-  bool contains(Eigen::Array3d point);
+  bool contains(Eigen::Array3d point) const;
 
   /**
    * @brief Given a bounding box, checks if the input box is completely inside
@@ -322,18 +322,20 @@ class BoundingBox3 {
    * @return true if completely inside
    * @return false if any of the extremities is outside
    */
-  bool contains(BoundingBox3 box);
+  bool contains(BoundingBox3 box) const;
 
   /**
    * @brief Subdivide this BoundingBox3 and return a vector with the new Boxes.
+   * The parameter refers to number of cuts that will be made to the cube
    *
-   * If no parameter is given, then is divided once in each axis.
+   * If no parameter is given, then is divided once in each axis (one cut)
    * If one int is given then the subdivisions are counted following the given
    * value. If two ints are given, then they correspond to the amount of the
    * divisions in horizontal axis and the amount of divisions in the vertical
    * axis
    *
-   * @return std::vector<BoundingBox3>
+   * @return std::vector<BoundingBox3> a vector containing all the sub boxes
+   * produced
    */
   std::vector<BoundingBox3> subdivide();
   std::vector<BoundingBox3> subdivide(int subdivisions);
@@ -403,9 +405,25 @@ class BoundingBox3 {
    * @param point
    * @return double
    */
-  double computeDistanceToPoint(Eigen::Array3d point);
+  double computeDistanceToPoint(Eigen::Array3d point) const;
+
+  /**
+   * @brief Given a vector containing the vertices of a triangle, use the
+   * Separation Axis Theorem (SAT) to check if the bounding box and the triangle
+   * intersects
+   *
+   * If the vector contains size different than 3, a exception is raised
+   *
+   * @param triangle
+   * @return true
+   * @return false
+   */
+  bool doesIntersectWithTriangle(std::vector<Eigen::Array3d> triangle) const;
 
  private:
+  bool _performSatTestCategory3(std::vector<Eigen::Array3d> triangle,
+                                Eigen::Vector3d axis) const;
+
   Eigen::Array3d _min, _max;
 };
 }  // namespace Ramuh

@@ -7,27 +7,45 @@
 #include <ramuh_utils/mesh_loader.hpp>
 #include <string>
 
-TEST_CASE("Mesh loader", "[mesh, triangles, geometry]") {
-  SECTION("Cube object") {
-    Ramuh::FaceVertexMesh mesh;
-    Ramuh::MeshLoader loader;
+// TEST_CASE("Mesh loader", "[mesh, triangles, geometry]") {
+//   SECTION("Cube object") {
+//     Ramuh::FaceVertexMesh mesh;
+//     Ramuh::MeshLoader loader;
 
-    std::string meshPath =
-        "/home/rnakanishi/git/bahamut-zero/kingMoogle/meshes/cube.obj";
-    loader.loadObj(meshPath, mesh);
-    Ramuh::CubeTree tree(mesh);
-    REQUIRE(tree.countLeavesWithVertices() == 8);
-  }
-  SECTION("Triangle object") {
-    Ramuh::FaceVertexMesh mesh;
-    Ramuh::MeshLoader loader;
+//     std::string meshPath =
+//         "/home/rnakanishi/git/bahamut-zero/kingMoogle/meshes/cube.obj";
+//     loader.loadObj(meshPath, mesh);
+//     Ramuh::CubeTree tree(mesh);
+//     REQUIRE(tree.countLeavesWithVertices() == 8);
+//   }
+//   SECTION("Triangle object") {
+//     Ramuh::FaceVertexMesh mesh;
+//     Ramuh::MeshLoader loader;
 
-    std::string meshPath =
-        "/home/rnakanishi/git/bahamut-zero/kingMoogle/meshes/triangle.obj";
-    loader.loadObj(meshPath, mesh);
-    Ramuh::CubeTree tree(mesh);
-    REQUIRE(tree.countLeavesWithVertices() == 3);
-  }
+//     std::string meshPath =
+//         "/home/rnakanishi/git/bahamut-zero/kingMoogle/meshes/triangle.obj";
+//     loader.loadObj(meshPath, mesh);
+//     Ramuh::CubeTree tree(mesh);
+//     REQUIRE(tree.countLeavesWithVertices() == 3);
+//   }
+// }
+
+TEST_CASE("Node level retrieval", "[cubeTree, geometry]") {
+  Ramuh::CubeTree tree;
+
+  REQUIRE(tree.getNodeLevel(2) == 1);
+  REQUIRE(tree.getNodeLevel(8) == 1);
+  REQUIRE(tree.getNodeLevel(9) == 2);
+  REQUIRE(tree.getNodeLevel(25) == 2);
+  REQUIRE(tree.getNodeLevel(72) == 2);
+  REQUIRE(tree.getNodeLevel(73) == 3);
+  REQUIRE(tree.getNodeLevel(584) == 3);
+  REQUIRE(tree.getNodeLevel(585) == 4);
+  REQUIRE(tree.getNodeLevel(791) == 4);
+  REQUIRE(tree.getNodeLevel(4680) == 4);
+  REQUIRE(tree.getNodeLevel(4681) == 5);
+  REQUIRE(tree.getNodeLevel(12755) == 5);
+  REQUIRE(tree.getNodeLevel(37448) == 5);
 }
 
 TEST_CASE("Closest point to triangle", "[mesh, triangles, geometry]") {
