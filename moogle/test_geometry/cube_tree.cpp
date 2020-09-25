@@ -84,10 +84,10 @@ TEST_CASE("Closest point to cube", "[mesh, triangles, geometry]") {
 
   Ramuh::CubeTree tree(mesh);
 
+  REQUIRE(tree.findClosestPoint(Eigen::Array3f(2.25, 0.471, 0.715))
+              .isApprox(Eigen::Array3f(1.0, 0.471, 0.715)));
   REQUIRE(tree.findClosestPoint(Eigen::Array3f(0.25, 3.4, 0.7))
               .isApprox(Eigen::Array3f(0.25, 1.0, 0.7)));
-  REQUIRE(tree.findClosestPoint(Eigen::Array3f(2.25, 0.4, 0.7))
-              .isApprox(Eigen::Array3f(1.0, 0.4, 0.7)));
   // Inside
   REQUIRE(tree.findClosestPoint(Eigen::Array3f(0.25, 0.8, 0.7))
               .isApprox(Eigen::Array3f(0.25, 1.0, 0.7)));

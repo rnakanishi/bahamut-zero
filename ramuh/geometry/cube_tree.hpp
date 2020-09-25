@@ -11,8 +11,11 @@ namespace Ramuh {
 
 /**
  * @brief This class take as input a Mesh object and computes its bounding
- * sphere to build the tree. The tree nodes contains the mesh polygons inside
+ * box to build the tree. The tree nodes contains the mesh polygons inside
  * them and is used to auxiliate queries to find its closest points
+ *
+ * For every child of a given cell, checks if a surface face crosses the cell,
+ * adding it to an internal vector that manages the cells.
  *
  */
 class CubeTree {
@@ -41,6 +44,12 @@ class CubeTree {
   /**
    * @brief Given a point query, finds the cloasest point that relies on the
    * surface.
+   *
+   * This method builds a priority queue to check for distances. This is done
+   * because not always the closest cell to the point is the solution, as
+   * triangles may fully cross a cell, or the query point may be very close to
+   * cell face and the neighboring cell contains a tangent face that is closest
+   * to query.
    *
    * @param point
    * @param maxDistance

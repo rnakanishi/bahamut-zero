@@ -117,23 +117,28 @@ Eigen::Array3f CubeTree::findClosestPoint(Eigen::Array3f pointQuery,
   int nodeId = 0, closestCellId;
   float distance = std::numeric_limits<float>::max();
 
+  std::priority_queue<std::pair<float, int>> leavesDistance;
+  leavesDistance.push(std::make_pair<float, int>(
+      -_boxes[0].computeDistanceToPoint(pointQuery.cast<double>()), 0));
+
   // Find Closest leaf cell
-  for (size_t level = 1; level <= _treeDepth; level++) {
+  while (getNodeLevel(leavesDistance.top().second) < _treeDepth) {
+    int nodeId = leavesDistance.top().second;
+    leavesDistance.pop();
     std::vector<int> children = getNodeChildren(nodeId);
+
     // Check which children that is closest to the query
     distance = std::numeric_limits<float>::max();
-    for (auto& childId : children) {
+    for (auto&& childId : children) {
       if (_hasFace[childId]) {
-        float childDistance = (float)_boxes[childId].computeDistanceToPoint(
-            pointQuery.cast<double>());
-        if (distance > childDistance && distance <= maxDistance) {
-          closestCellId = childId;
-          nodeId = childId;
-          distance = childDistance;
-        }
+        float childDistance =
+            _boxes[childId].computeDistanceToPoint(pointQuery.cast<double>());
+        leavesDistance.push(std::make_pair<float, int>(
+            std::move(-childDistance), std::move(childId)));
       }
     }
   }
+  closestCellId = leavesDistance.top().second;
 
   // With the closest cell, retrieve all faces in that cell
   // For all faces crossing the cell, find its closest point and compute the
