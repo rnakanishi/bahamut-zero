@@ -8,9 +8,33 @@ TextureObject::TextureObject() {
   _isSet = false;
 }
 
-void TextureObject::setFilename(std::string filename) {
-  _filename = filename;
+void TextureObject::setFilename(std::string& filename) {
+  _texPath = filename;
   _isSet = true;
+}
+
+int TextureObject::getWidth() {
+  return _width;
+}
+int TextureObject::getHeight() {
+  return _height;
+}
+unsigned char* TextureObject::getImageData() {
+  return _image;
+}
+
+void TextureObject::setImage(unsigned char** image,
+                             int width,
+                             int height,
+                             int channels) {
+  _image = *image;
+  _width = width;
+  _height = height;
+  _channels = channels;
+}
+
+std::string& TextureObject::getFilename() {
+  return _texPath;
 }
 
 }  // namespace Garuda

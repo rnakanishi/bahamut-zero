@@ -5,16 +5,29 @@
 #include <string>
 
 namespace Garuda {
-class TextureObject : public RenderObject {
+class TextureObject {
  public:
   TextureObject();
 
-  void setFilename(std::string filename);
+  void setFilename(std::string& path);
+
+  std::string& getFilename();
+
+  // TODO: change to shaded pointer
+  void setImage(unsigned char** image, int width, int height, int channels);
+
+  int getWidth();
+
+  int getHeight();
+
+  unsigned char* getImageData();
 
  protected:
-  std::string _filename;
+  std::string _texPath;
+  unsigned char* _image;
+  int _width, _height, _channels;
   bool _isSet;
 };
-}  // namespace Garuda
 
+}  // namespace Garuda
 #endif

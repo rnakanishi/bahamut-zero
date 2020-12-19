@@ -137,7 +137,7 @@ Eigen::Array3f FaceVertexMesh::findClosestPointToFace(int faceId,
   Eigen::Vector3f bp = (point - vertexB).matrix();
   float d3 = ab.dot(bp);
   float d4 = ac.dot(bp);
-  if (d3 >= 0 && d3 <= d3) {
+  if (d3 >= 0 && d4 <= d3) {
     return vertexB;
   }
 

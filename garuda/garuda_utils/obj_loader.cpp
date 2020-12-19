@@ -20,9 +20,9 @@ void ObjLoader::loadFile(std::string filename, TriangleMesh& object) {
   int lastSlash = baseDir.find_last_of("/\\");
 
   // Loaading data
-  bool ret =
-      tinyobj::LoadObj(&attributes, &shapes, &materials, &warning, &error, path,
-                       baseDir.substr(0, lastSlash).c_str(), true, false);
+  bool ret = tinyobj::LoadObj(
+      &attributes, &shapes, &materials, &warning, &error, filename.c_str(),
+      baseDir.substr(0, lastSlash).c_str(), true, false);
 
   bool hasTexture, hasMaterial, hasNormal;
 
@@ -50,7 +50,7 @@ void ObjLoader::loadFile(std::string filename, TriangleMesh& object) {
             << "\nNormals size: " << attributes.normals.size() / 3 << std::endl;
   std::vector<Eigen::ArrayXf> texCoords;
   for (int i = 0; i < attributes.texcoords.size(); i++) {
-    texCoords.emplace_back(Eigen::ArrayXf(attributes.texcoords[2 * i + 0],
+    texCoords.emplace_back(Eigen::Array2f(attributes.texcoords[2 * i + 0],
                                           attributes.texcoords[2 * i + 1]));
   }
   object.addVerticeProperty("textureCoordinates", texCoords);
