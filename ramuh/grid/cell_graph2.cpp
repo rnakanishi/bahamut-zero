@@ -1,6 +1,6 @@
+#include <exceptions/exception.hpp>
 #include <grid/cell_graph2.hpp>
 #include <map>
-#include <exceptions/exception.hpp>
 
 namespace Ramuh {
 CellGraph2::CellGraph2() : CellGraph2::CellGraph2(BoundingBox2(0, 1)) {}
@@ -159,7 +159,8 @@ size_t CellGraph2::coarseNode(size_t nodeId) {
   if (siblings.size() != 4)
     return -1;
 
-  // Sort the sibling
+  // Sort the sibling\
+  // TODO: Implement coarseNode 2D
   return -1;
 }
 
